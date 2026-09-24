@@ -26,20 +26,22 @@ Focus exclusively on logic bugs, condition boundaries, and data integrity:
 
 ## <a id="lens-2"></a>Lens 2: Security & Vulnerabilities
 
-Focus on untrusted inputs, authorization boundaries, and data exposure:
+Focus on untrusted inputs, authorization boundaries, and data exposure (grounded in [`security-engineering`](../../security-engineering/SKILL.md)):
 
 ### Inspection Checklist:
-1. **Injection Vectors (OWASP A03)**:
+1. **Injection & Control/Data Separation (OWASP A03 / Invariant 6)**:
    - Are SQL queries concatenated using raw strings instead of parameterized queries?
    - Are shell commands executed with unescaped user inputs (`child_process.exec`, `os.system`)?
    - Is raw HTML or user markdown rendered without sanitization (XSS)?
-2. **Authentication & Authorization Bypass (OWASP A01)**:
+   - For LLM/AI apps: are untrusted external inputs concatenated directly into prompt instruction channels? (See [`references/trust-boundaries-and-taint.md`](../../security-engineering/references/trust-boundaries-and-taint.md)).
+2. **Authentication & Authorization Bypass (OWASP A01 / Invariants 2 & 4)**:
    - Does an endpoint verify that the authenticated user owns the resource being accessed or modified (IDOR prevention)?
    - Can an unauthenticated caller invoke admin or internal endpoints?
-3. **Secret Hygiene**:
-   - Are API keys, private tokens, passwords, or internal connection strings committed in code, configs, or test fixtures?
+   - Are autonomous agent tools operating with zero ambient authority? (See [`references/agentic-ai-threat-matrix.md`](../../security-engineering/references/agentic-ai-threat-matrix.md)).
+3. **Secret Hygiene & Entropy**:
+   - Are API keys, private tokens, passwords, or connection strings committed in code, configs, or fixtures? (Evaluate using the Secret Triad in [`references/secrets-and-supply-chain.md`](../../security-engineering/references/secrets-and-supply-chain.md)).
 4. **SSRF & Path Traversal**:
-   - Can user input dictate file paths (`../../etc/passwd`) or external webhook URLs to internal VPC networks?
+   - Can user input dictate file paths (`../../etc/passwd`) or external webhook URLs to internal VPC networks or metadata endpoints (`169.254.169.254`)?
 
 ---
 
