@@ -14,6 +14,7 @@
 
   <p>
     <a href="#overview"><strong>Overview</strong></a> •
+    <a href="#built-in-skills-catalog"><strong>Skill Catalog</strong></a> •
     <a href="#skill-architecture"><strong>Skill Architecture</strong></a> •
     <a href="#installation--usage"><strong>Installation & Usage</strong></a> •
     <a href="#verification-did-it-work"><strong>Verification</strong></a>
@@ -35,6 +36,24 @@ Rather than relying on unguided prompts or rigid scripts, Grimoire equips agents
 | **Zero Data Loss & Hygiene** | **Defensive Execution** | Enforces strict guardrails against credential leaks, irreversible destructive operations, and unverified bulk mutations. |
 | **Framework Agnostic** | **Universal Portability** | Native compatibility with Google Antigravity, Claude Code, Cursor, Copilot Workspace, Windsurf, and custom agent harnesses. |
 | **Autonomous Evolution** | **Continuous Alignment** | Engineered to adapt dynamically alongside agent runtimes, tool-calling APIs, and modern development stacks. |
+
+---
+
+## Built-in Skills Catalog
+
+Agent Grimoire provides an integrated suite of battle-tested capabilities covering the entire software development lifecycle:
+
+| Skill | Category | Mandate & Purpose | Entrypoint |
+| :--- | :--- | :--- | :--- |
+| **`code-quality`** | Construction | Boundary validation, algebraic state modeling, structured causal error hygiene, and concurrency safety without limiting creativity. | [`.agents/skills/code-quality/SKILL.md`](.agents/skills/code-quality/SKILL.md) |
+| **`code-review`** | Audit | Two-stage review gate (spec compliance first, then code quality), 4 specialized lenses, 0–100 confidence scoring, and noise suppression. | [`.agents/skills/code-review/SKILL.md`](.agents/skills/code-review/SKILL.md) |
+| **`testing`** | Verification | Empirical testing over implementation, runner auto-discovery, risk-based allocation, hostile failure paths, and mutation mindset. | [`.agents/skills/testing/SKILL.md`](.agents/skills/testing/SKILL.md) |
+| **`refactoring`** | Evolution | Separation Law (never mix refactoring with behavioral changes), characterization pinning, and atomic micro-steps. | [`.agents/skills/refactoring/SKILL.md`](.agents/skills/refactoring/SKILL.md) |
+| **`agent-evaluation`** | Certification | Universal 5-Point Verification Gate (traceability, static types, test suite, diff sanity, negative validation) before declaring completion. | [`.agents/skills/agent-evaluation/SKILL.md`](.agents/skills/agent-evaluation/SKILL.md) |
+| **`project-analysis`** | Discovery | Understand before modifying; bifurcated flow tracing, boundary cartography, 5-tier evidence grounding, and blast radius reports. | [`.agents/skills/project-analysis/SKILL.md`](.agents/skills/project-analysis/SKILL.md) |
+| **`multi-agent-orchestration`** | Coordination | Parallel and phased sub-agent decomposition, isolated worktrees, durable task contracts, and holistic merge verification. | [`.agents/skills/multi-agent-orchestration/SKILL.md`](.agents/skills/multi-agent-orchestration/SKILL.md) |
+| **`github-pro`** | Mechanics | Git and GitHub workflow automation, intent disambiguation, pre-flight safety checks, and release milestone management. | [`.agents/skills/github-pro/SKILL.md`](.agents/skills/github-pro/SKILL.md) |
+| **`docs-pro`** | Knowledge | Architecture playbooks, ADRs, READMEs, Diátaxis framework, and anti-drift synchronization. | [`.agents/skills/docs-pro/SKILL.md`](.agents/skills/docs-pro/SKILL.md) |
 
 ---
 
