@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 25 200 130" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Left Page Wing Gradient: Vivid Cyber Sky to Deep Indigo -->
+    <linearGradient id="leftPageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="60%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+
+    <!-- Right Page Wing Gradient: Arcane Violet to Neon Rose -->
+    <linearGradient id="rightPageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="50%" stop-color="#9333ea"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+
+    <!-- Turning Page Morph Gradient: Iridescent Shifting Energy -->
+    <linearGradient id="turnPageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#f43f5e"/>
+    </linearGradient>
+
+    <!-- Page Top Edge Highlights -->
+    <linearGradient id="leftGleam" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.2"/>
+    </linearGradient>
+
+    <linearGradient id="rightGleam" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f472b6" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.8"/>
+    </linearGradient>
+
+    <!-- Agent Singularity Core Glow -->
+    <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="25%" stop-color="#818cf8" stop-opacity="0.85"/>
+      <stop offset="60%" stop-color="#c084fc" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#c084fc" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Ambient Cosmic Halo (Smooth falloff before viewBox bounds) -->
+    <radialGradient id="ambientAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.28"/>
+      <stop offset="40%" stop-color="#a855f7" stop-opacity="0.08"/>
+      <stop offset="65%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <style>
+    /* Gentle floating levitation for the entire grimoire */
+    @keyframes grimoireFloat {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    /* Core Singularity Breathing Pulse */
+    @keyframes coreSingularity {
+      0%, 100% {
+        transform: scale(0.95);
+        opacity: 0.92;
+      }
+      50% {
+        transform: scale(1.15);
+        opacity: 1;
+      }
+    }
+
+    /* Ambient glow breathing */
+    @keyframes auraPulse {
+      0%, 100% {
+        transform: scale(0.95);
+        opacity: 0.7;
+      }
+      50% {
+        transform: scale(1.05);
+        opacity: 1;
+      }
+    }
+
+    .float-container {
+      animation: grimoireFloat 4s ease-in-out infinite;
+      transform-origin: 100px 105px;
+    }
+
+    .pulse-core {
+      animation: coreSingularity 2.5s ease-in-out infinite;
+      transform-origin: 100px 72px;
+    }
+
+    .pulse-aura {
+      animation: auraPulse 4s ease-in-out infinite;
+      transform-origin: 100px 105px;
+    }
+  </style>
+
+  <!-- Ambient Backdrop Glow (Clean radial falloff, zero box clipping) -->
+  <circle cx="100" cy="105" r="75" fill="url(#ambientAura)" class="pulse-aura"/>
+
+  <!-- Main Floating Grimoire Container -->
+  <g class="float-container">
+
+    <!-- Subtle Codex Under-Cover / Shadow Layer (Gives depth without blockiness) -->
+    <path d="M 100 82 C 82 72 58 72 40 79 C 38 80 37 82 37 85 L 37 131 C 37 134 39 136 42 135 C 59 129 82 130 100 138 C 118 130 141 129 158 135 C 161 136 163 134 163 131 L 163 85 C 163 82 162 80 160 79 C 142 72 118 72 100 82 Z"
+          fill="#0c101d" stroke="#1e293b" stroke-width="1.2" stroke-linejoin="round"/>
+
+    <!-- Stacked Lower Pages (Subtle layered paper depth) -->
+    <path d="M 100 80 C 83 72 61 71 43 77 L 43 128 C 61 123 83 124 100 133 Z" fill="#1e1e38" opacity="0.65"/>
+    <path d="M 100 80 C 117 72 139 71 157 77 L 157 128 C 139 123 117 124 100 133 Z" fill="#1e1e38" opacity="0.65"/>
+
+    <!-- Left Static Wing (Flowing curved open codex page) -->
+    <path d="M 100 76 C 83 67 61 67 45 74 C 44 74 43 76 43 78 L 43 126 C 43 128 45 129 47 128 C 63 122 83 123 100 132 Z"
+          fill="url(#leftPageGrad)" opacity="0.95"/>
+    <!-- Left Top Edge Curvature Gleam -->
+    <path d="M 100 76 C 83 67 61 67 45 74" stroke="url(#leftGleam)" stroke-width="1.6" stroke-linecap="round"/>
+
+    <!-- Right Static Wing (Flowing curved open codex page) -->
+    <path d="M 100 76 C 117 67 139 67 155 74 C 156 74 157 76 157 78 L 157 126 C 157 128 155 129 153 128 C 137 122 117 123 100 132 Z"
+          fill="url(#rightPageGrad)" opacity="0.95"/>
+    <!-- Right Top Edge Curvature Gleam -->
+    <path d="M 100 76 C 117 67 139 67 155 74" stroke="url(#rightGleam)" stroke-width="1.6" stroke-linecap="round"/>
+
+    <!-- ======================================================== -->
+    <!-- DYNAMIC TURNING PAGES: Organic, bending, curved page flips -->
+    <!-- ======================================================== -->
+
+    <!-- TURNING PAGE 2 (Staggered continuous flip: 1.8s phase offset) -->
+    <path fill="url(#turnPageGrad)" opacity="0.92">
+      <animate attributeName="d" dur="3.6s" begin="1.8s" repeatCount="indefinite"
+        values="
+          M 100 76 C 117 67 139 67 155 74 L 155 126 C 139 120 117 121 100 132 Z;
+          M 100 76 C 114 59 134 56 145 61 L 143 115 C 132 111 114 117 100 132 Z;
+          M 100 76 C 107 48 105 46 101 46 L 101 104 C 105 110 104 121 100 132 Z;
+          M 100 76 C 86 59 66 56 55 61 L 57 115 C 68 111 86 117 100 132 Z;
+          M 100 76 C 83 67 61 67 45 74 L 45 126 C 61 120 83 121 100 132 Z;
+          M 100 76 C 83 67 61 67 45 74 L 45 126 C 61 120 83 121 100 132 Z
+        "
+        keyTimes="0; 0.22; 0.48; 0.74; 0.92; 1"
+        calcMode="spline"
+        keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
+      />
+      <animate attributeName="opacity" dur="3.6s" begin="1.8s" repeatCount="indefinite"
+        values="0; 0.92; 0.95; 0.92; 0.85; 0"
+        keyTimes="0; 0.06; 0.48; 0.84; 0.94; 1"
+      />
+    </path>
+
+    <!-- TURNING PAGE 1 (Primary continuous organic flip) -->
+    <path fill="url(#turnPageGrad)" opacity="0.92">
+      <animate attributeName="d" dur="3.6s" begin="0s" repeatCount="indefinite"
+        values="
+          M 100 76 C 117 67 139 67 155 74 L 155 126 C 139 120 117 121 100 132 Z;
+          M 100 76 C 114 59 134 56 145 61 L 143 115 C 132 111 114 117 100 132 Z;
+          M 100 76 C 107 48 105 46 101 46 L 101 104 C 105 110 104 121 100 132 Z;
+          M 100 76 C 86 59 66 56 55 61 L 57 115 C 68 111 86 117 100 132 Z;
+          M 100 76 C 83 67 61 67 45 74 L 45 126 C 61 120 83 121 100 132 Z;
+          M 100 76 C 83 67 61 67 45 74 L 45 126 C 61 120 83 121 100 132 Z
+        "
+        keyTimes="0; 0.22; 0.48; 0.74; 0.92; 1"
+        calcMode="spline"
+        keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
+      />
+      <animate attributeName="opacity" dur="3.6s" begin="0s" repeatCount="indefinite"
+        values="0; 0.92; 0.95; 0.92; 0.85; 0"
+        keyTimes="0; 0.06; 0.48; 0.84; 0.94; 1"
+      />
+    </path>
+
+    <!-- Natural Center Spine Crease (Subtle illuminated fold, NOT a dividing rod) -->
+    <path d="M 100 75 L 100 133" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+    <path d="M 100 75 L 100 133" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" opacity="0.3"/>
+
+    <!-- Central Agent Singularity Core (Radiant 4-Point Star hovering over spine) -->
+    <g class="pulse-core">
+      <!-- Ambient Singularity Halo -->
+      <circle cx="100" cy="72" r="18" fill="url(#starGlow)"/>
+      
+      <!-- Precision 4-Point Star -->
+      <path d="M 100 58 Q 100 72 114 72 Q 100 72 100 86 Q 100 72 86 72 Q 100 72 100 58 Z" fill="#ffffff"/>
+      
+      <!-- Inner Chroma Core Diamond -->
+      <polygon points="100,65 106,72 100,79 94,72" fill="url(#leftPageGrad)"/>
+      <circle cx="100" cy="72" r="1.8" fill="#ffffff"/>
+    </g>
+
+    <!-- Upward Spark (Subtle beacon of autonomous evolution) -->
+    <circle cx="100" cy="44" r="1.8" fill="#38bdf8">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>
