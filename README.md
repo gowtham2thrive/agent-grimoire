@@ -8,7 +8,7 @@
   </p>
 
   <p>
-    <a href="https://github.com/gowtham2thrive/skills"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License: MIT" /></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License: MIT" /></a>
     <a href="#core-tenets"><img src="https://img.shields.io/badge/Agents-Agent--Agnostic-38bdf8.svg?style=flat-square" alt="Agents: Agent-Agnostic" /></a>
   </p>
 
@@ -55,6 +55,7 @@ Agent Grimoire provides an integrated suite of battle-tested capabilities coveri
 | **`multi-agent-orchestration`** | Coordination | Parallel and phased sub-agent decomposition, isolated worktrees, durable task contracts, and holistic merge verification. | [`.agents/skills/multi-agent-orchestration/SKILL.md`](.agents/skills/multi-agent-orchestration/SKILL.md) |
 | **`github-pro`** | Mechanics | Git and GitHub workflow automation, intent disambiguation, pre-flight safety checks, and release milestone management. | [`.agents/skills/github-pro/SKILL.md`](.agents/skills/github-pro/SKILL.md) |
 | **`docs-pro`** | Knowledge | Architecture playbooks, ADRs, READMEs, Diátaxis framework, and anti-drift synchronization. | [`.agents/skills/docs-pro/SKILL.md`](.agents/skills/docs-pro/SKILL.md) |
+| **`design-philosophy`** | Interface | Values -> Principles -> Moves, perceptual physics, Gestalt grouping, typographic rhythm, 60-30-10 chromatic restraint, and scaled state completeness without limiting artistic creativity. | [`.agents/skills/design-philosophy/SKILL.md`](.agents/skills/design-philosophy/SKILL.md) |
 
 ---
 
@@ -144,7 +145,7 @@ your-project/
 ##### macOS & Linux (Bash / Zsh)
 ```bash
 # 1. Clone into a temporary folder
-git clone --depth 1 https://github.com/gowtham2thrive/skills.git temp-grimoire
+git clone --depth 1 https://github.com/gowtham2thrive/agent-grimoire.git temp-grimoire
 
 # 2. Copy skills catalog and router into your workspace root
 mkdir -p .agents/skills
@@ -158,7 +159,7 @@ rm -rf temp-grimoire
 ##### Windows (PowerShell)
 ```powershell
 # 1. Clone into a temporary folder
-git clone --depth 1 https://github.com/gowtham2thrive/skills.git temp-grimoire
+git clone --depth 1 https://github.com/gowtham2thrive/agent-grimoire.git temp-grimoire
 
 # 2. Copy skills catalog and router into your workspace root
 New-Item -ItemType Directory -Force -Path ".agents\skills"
@@ -172,7 +173,7 @@ Remove-Item -Recurse -Force temp-grimoire
 ##### Alternative: Git Submodule
 If you prefer tracking Grimoire updates cleanly via Git:
 ```bash
-git submodule add https://github.com/gowtham2thrive/skills.git .agents/grimoire
+git submodule add https://github.com/gowtham2thrive/agent-grimoire.git .agents/grimoire
 cp .agents/grimoire/AGENTS.md ./AGENTS.md
 ```
 
@@ -191,7 +192,7 @@ To make Grimoire skills available across all projects without copying files into
 ##### macOS & Linux (Bash / Zsh)
 ```bash
 # Clone to a permanent local directory
-git clone https://github.com/gowtham2thrive/skills.git ~/.agent-grimoire
+git clone https://github.com/gowtham2thrive/agent-grimoire.git ~/.agent-grimoire
 
 # Link desired skills into your global Antigravity / Gemini skills registry
 mkdir -p ~/.gemini/config/skills
@@ -201,7 +202,7 @@ ln -s ~/.agent-grimoire/.agents/skills/github-pro ~/.gemini/config/skills/github
 ##### Windows (PowerShell)
 ```powershell
 # Clone to a permanent local directory
-git clone https://github.com/gowtham2thrive/skills.git "$HOME\.agent-grimoire"
+git clone https://github.com/gowtham2thrive/agent-grimoire.git "$HOME\.agent-grimoire"
 
 # Copy desired skills to your global registry
 New-Item -ItemType Directory -Force -Path "$HOME\.gemini\config\skills"

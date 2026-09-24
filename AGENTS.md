@@ -18,6 +18,7 @@ Whenever a task relates to a registered skill in `.agents/skills/`, you **MUST**
 - **Git & GitHub Workflows**: Load [`.agents/skills/github-pro/SKILL.md`](.agents/skills/github-pro/SKILL.md). Enforces intent disambiguation, pre-flight checks, release detection, and hygiene before running any Git/GitHub commands.
 - **Documentation & Technical Writing**: Load [`.agents/skills/docs-pro/SKILL.md`](.agents/skills/docs-pro/SKILL.md). Enforces convention discovery, evidence-backed grounding, Diátaxis mode discipline, anti-drift synchronization, and progressive disclosure for any project documentation.
 - **Multi-Agent Orchestration**: Load [`.agents/skills/multi-agent-orchestration/SKILL.md`](.agents/skills/multi-agent-orchestration/SKILL.md). Enforces topology selection, foundation-first discipline, isolated worktree dispatch, bounded supervision with recovery ladders, and holistic integration verification.
+- **UI Design Philosophy & Visual Engineering**: Load [`.agents/skills/design-philosophy/SKILL.md`](.agents/skills/design-philosophy/SKILL.md). Enforces Values -> Principles -> Moves reasoning, perceptual physics, Gestalt grouping, typographic rhythm, 60-30-10 chromatic restraint, elastic reflow, and scaled state completeness across any platform (Web, Mobile, TUI, Canvas, Spatial) without limiting artistic creativity.
 - **Data Safety**: Always verify before running commands that could result in irreversible data loss.
 - **Reporting**: Keep routine responses concise; provide detailed structured breakdowns for milestones or architectural changes.
 
