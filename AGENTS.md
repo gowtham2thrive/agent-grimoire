@@ -2,48 +2,112 @@
 
 This file governs agent behavior within this workspace. It acts as the primary rulebook and router for loading skills from `.agents/skills/`.
 
+Skills are activated by relevance, not by availability.
+
+The presence of a skill does not imply that it should be used.
+
+The agent must determine:
+1. whether the skill is relevant,
+2. whether another skill already covers the need,
+3. whether activating it adds meaningful value,
+4. whether its context cost is justified,
+5. whether the task can safely proceed without it.
+
+Use the minimum sufficient set of skills required for the task.
+
+Never activate every skill by default.
+Never invoke a skill solely because another skill mentioned its name.
+Never use a technology-specific skill when a universal principle is sufficient.
 ---
 
 ## 1. Skill Discovery & Invocation Mandate
 
 Whenever a task relates to a registered skill in `.agents/skills/`, you **MUST** read the corresponding `SKILL.md` before executing actions:
 
-- **Requirements Analysis & Intent Engineering**: Load [`.agents/skills/requirements-analysis/SKILL.md`](.agents/skills/requirements-analysis/SKILL.md). Enforces intent-mechanism separation, the 7 Universal Requirements Invariants, EARS syntax, operational (M, T, C) NFR triads, BDD acceptance criteria, the Autonomous Defaulting Axiom, boundary forensics, and living baseline traceability across any software archetype without limiting agent creativity or prescribing implementation mechanisms.
-- **Code Quality & Defensive Engineering**: Load [`.agents/skills/code-quality/SKILL.md`](.agents/skills/code-quality/SKILL.md). Enforces boundary validation, making illegal states unrepresentable, structured causal error hygiene, deterministic resource management, concurrency safety, and anti-overengineering locality of behavior without limiting architectural creativity.
-- **Independent Code Review**: Load [`.agents/skills/code-review/SKILL.md`](.agents/skills/code-review/SKILL.md). Enforces a two-stage review gate (specification compliance first, then code quality), specialized multi-lens auditing (correctness, security, performance, regression), 0–100 confidence scoring, and ruthless filtering of cosmetic noise.
-- **Empirical Testing & Verification**: Load [`.agents/skills/testing/SKILL.md`](.agents/skills/testing/SKILL.md). Enforces testing behavior over implementation, risk-based allocation, strong semantic assertions, hostile failure paths, mutation mindset, runner auto-discovery, and hermetic flakiness elimination across any runtime or brownfield project.
-- **Behavior-Preserving Refactoring**: Load [`.agents/skills/refactoring/SKILL.md`](.agents/skills/refactoring/SKILL.md). Enforces the Separation Law (never mix refactoring with behavioral changes), characterization pinning before mutation, atomic micro-steps under an active test harness, and strict behavioral invariance verification.
-- **Agent Evaluation & Task Verification Gate**: Load [`.agents/skills/agent-evaluation/SKILL.md`](.agents/skills/agent-evaluation/SKILL.md). Enforces the 5-Point Verification Gate (requirement traceability, static types, test suite execution, diff sanity, and negative validation) before declaring any task complete.
-- **Project Analysis & Codebase Exploration**: Load [`.agents/skills/project-analysis/SKILL.md`](.agents/skills/project-analysis/SKILL.md). Enforces understand-before-modifying discipline, bifurcated vertical flow tracing, 5-tier epistemic evidence grounding, boundary cartography, risk hotspot forensics, and reusable context distillation across any language, framework, or tooling.
-- **Security Engineering & Threat Defense**: Load [`.agents/skills/security-engineering/SKILL.md`](.agents/skills/security-engineering/SKILL.md). Enforces the 7 Universal Security Invariants, archetype-aware reachability analysis, zero ambient authority, control/data plane separation, and 0–100 evidence-grounded scoring without limiting architectural creativity.
-- **Git & GitHub Workflows**: Load [`.agents/skills/github-pro/SKILL.md`](.agents/skills/github-pro/SKILL.md). Enforces intent disambiguation, pre-flight checks, release detection, and hygiene before running any Git/GitHub commands.
-- **Documentation & Technical Writing**: Load [`.agents/skills/docs-pro/SKILL.md`](.agents/skills/docs-pro/SKILL.md). Enforces convention discovery, evidence-backed grounding, Diátaxis mode discipline, anti-drift synchronization, and progressive disclosure for any project documentation.
-- **Multi-Agent Orchestration**: Load [`.agents/skills/multi-agent-orchestration/SKILL.md`](.agents/skills/multi-agent-orchestration/SKILL.md). Enforces topology selection, foundation-first discipline, isolated worktree dispatch, bounded supervision with recovery ladders, and holistic integration verification.
-- **UI Design Philosophy & Visual Engineering**: Load [`.agents/skills/design-philosophy/SKILL.md`](.agents/skills/design-philosophy/SKILL.md). Enforces Values -> Principles -> Moves reasoning, perceptual physics, Gestalt grouping, typographic rhythm, 60-30-10 chromatic restraint, elastic reflow, and scaled state completeness across any platform (Web, Mobile, TUI, Canvas, Spatial) without limiting artistic creativity.
-- **UX Engineering & Cognitive Ergonomics**: Load [`.agents/skills/ux-engineering/SKILL.md`](.agents/skills/ux-engineering/SKILL.md). Enforces user goal defense, the 8 Universal UX Invariants, HCI empirical laws (Fitts, Hick-Hyman, Miller, Jakob, Tesler, Doherty, Postel), information architecture, interaction mechanics, reversible recovery, actionable microcopy, and 0–4 severity usability auditing across any platform (Web, Mobile, Desktop, TUI/CLI, AI Agents) without limiting architectural creativity.
-- **Accessibility Engineering & Inclusive Interaction**: Load [`.agents/skills/accessibility/SKILL.md`](.agents/skills/accessibility/SKILL.md). Enforces task primacy, the 8 Universal Accessibility Invariants ($\mathcal{A}_1 - \mathcal{A}_8$), the 4-tier Epistemic Evidence Ladder, the LIFO Focus Stack Machine, dual-contrast perceptual physics (WCAG 2.2 AA and APCA), virtual semantic mirrors for graphical canvases, and 0–4 mathematical finding schemas across any computing medium (Web, Mobile, Desktop, TUI, Canvas/Games, AI Agents) without limiting architectural creativity or restricting to any technology.
-- **System Architecture & Structural Design**: Load [`.agents/skills/system-architecture/SKILL.md`](.agents/skills/system-architecture/SKILL.md). Enforces the 7 Universal Architecture Invariants, constraint-first workload envelopes, deterministic state authority, acyclic module DAGs, failure blast-radius containment, load-bearing ADR trade-offs, and agentic system topologies without limiting architectural creativity or restricting to any technology.
-- **API Design & Interface Evolution**: Load [`.agents/skills/api-design/SKILL.md`](.agents/skills/api-design/SKILL.md). Enforces the 8 Universal API Invariants, Hyrum's Law shielding ($\mathcal{H} \to 0$), consumer intent modeling, deterministic idempotency state machines, closed canonical failure domains, keyset pagination, monotonic additive evolution (Expand-Contract), and multi-archetype adaptation (REST, gRPC, GraphQL, Async Events, SDKs, CLI, MCP Tools) without limiting agent creativity or prescribing implementation mechanisms.
-- **Data Architecture & Lifecycle Governance**: Load [`.agents/skills/data-management/SKILL.md`](.agents/skills/data-management/SKILL.md). Enforces the 8 Universal Data Invariants, multi-modal grain primacy ($\mathcal{G}$), semantic purity before physical optimization, the 3-Phase Expand-Contract Protocol ($\Delta_{\text{breakage}} = 0$), deterministic pipeline idempotency ($f(f(x)) = f(x)$), 6-dimensional quality certification ($Q_{\text{score}} \ge 0.95$), and lifecycle retention/cryptographic shredding across any storage paradigm without limiting agent creativity or restricting to any technology.
-- **Implementation Planning & Verifiable Execution**: Load [`.agents/skills/planning/SKILL.md`](.agents/skills/planning/SKILL.md). Enforces the 7 Universal Planning Invariants, evidence-grounded vertical slicing, acyclic dependency DAGs, deterministic verification triads <Pre, Mutation, Post>, the Thermo-Nuclear Simplification Gate, rolling wave horizons, and persistent file-backed state without limiting agent creativity or restricting to any technology.
-- **Dependency Engineering & Supply-Chain Management**: Load [`.agents/skills/dependency-management/SKILL.md`](.agents/skills/dependency-management/SKILL.md). Enforces the 7 Universal Dependency Invariants, transitive tree cartography, pre-adoption evaluation, attributable upgrade batches, supply-chain script sandboxing, reachability-based vulnerability triage, and the Clean Dependency Stopping Contract across any language or package ecosystem.
-- **Solution Discovery & Technology Selection**: Load [`.agents/skills/solution-discovery/SKILL.md`](.agents/skills/solution-discovery/SKILL.md). Enforces the Triviality Threshold, Framework-First inspection, the 5-Tier Solution Spectrum (Built-in -> Framework -> Compose -> Vendor -> Adopt -> Build), 10-axis candidate evaluation, anti-corruption adapters, and durable Solution Adoption Records (SAR) without limiting architectural creativity.
-- **Infrastructure Engineering & State Convergence**: Load [`.agents/skills/infrastructure/SKILL.md`](.agents/skills/infrastructure/SKILL.md). Enforces the 8 Universal Infrastructure Invariants, the State Triad model ($\Delta_{\text{drift}} = (S_{\text{desired}} \ominus S_{\text{recorded}}) \cup (S_{\text{recorded}} \ominus S_{\text{observed}})$), acyclic topological dependency DAGs ($u \prec v$), partitioned blast-radius containment, two-phase plan-apply verification, zero-trust perimeter defense, non-destructive brownfield adoption ($\mathcal{P} = \emptyset$), and continuous drift reconciliation across any computational archetype (Cloud, Bare-Metal, Kubernetes, Serverless, AI GPU Swarms) without limiting agent creativity or restricting to any technology.
-- **Configuration Management & Operational Governance**: Load [`.agents/skills/configuration-management/SKILL.md`](.agents/skills/configuration-management/SKILL.md). Enforces the 7 Universal Configuration Invariants, deterministic precedence lattices, strict schema validation, secrets vs config ontological separation, environment parity, bounded dynamic rollouts, and multi-agent cross-tool synchronization without limiting architectural creativity or restricting to any technology.
-- **Failure Recovery & Autonomous Self-Healing**: Load [`.agents/skills/failure-recovery/SKILL.md`](.agents/skills/failure-recovery/SKILL.md). Enforces decision-centric recovery over retry loops, the 7 Universal Recovery Invariants, 3-tier fault attribution (infrastructure vs cognitive vs domain), transactional state reversibility, assumption-tree backtracking, and monotonic convergence verification across any language, runtime, or agent framework.
-- **Automated Verification & CI/CD Pipelines**: Load [`.agents/skills/ci-cd/SKILL.md`](.agents/skills/ci-cd/SKILL.md). Enforces the 8 Universal CI/CD Invariants, 6-phase closed-loop lifecycle, 6 cognitive sizing modes, build-once artifact immutability ($\text{Digest}(A_{\text{dev}}) = \text{Digest}(A_{\text{prod}})$), topological fast feedback, deterministic hermetic builds, honest quality gates, hierarchical cache scoping, controlled concurrency, least privilege security, and seamless delivery handoffs across any software archetype without limiting agent creativity or restricting to any specific vendor.
-- **Release Engineering & Launch Governance**: Load [`.agents/skills/release-management/SKILL.md`](.agents/skills/release-management/SKILL.md). Enforces injective release identity ($\mathcal{R}_i$), the 8 Universal Release Invariants, 6-phase closed-loop release lifecycle, multi-lens readiness evidence scorecards, semantic change contract encoding, downstream consumer protection, rollback determinism, topological monorepo cascading DAGs, and human governance boundaries across any software archetype without limiting agent creativity or restricting to any technology.
-- **Deployment Engineering & Progressive Delivery**: Load [`.agents/skills/deployment/SKILL.md`](.agents/skills/deployment/SKILL.md). Enforces the 7 Universal Deployment Invariants, 7-stage closed-loop lifecycle, risk-proportional blast radius bounding, dual-horizon health verification, state-code co-evolution (Expand/Contract), side-effect virtualization, and deterministic recovery across any software archetype without limiting agent creativity or restricting to any technology.
-- **Observability Engineering & Service Vitality**: Load [`.agents/skills/observability/SKILL.md`](.agents/skills/observability/SKILL.md). Enforces question-first telemetry design, the 8 Universal Observability Invariants, continuous causal context propagation (`traceparent`, baggage), dual-horizon health separation ($S_{\text{vital}} \neq H_{\text{service}}$), mathematical cardinality bounding ($C = \prod |V_i|$), bidirectional boundary hygiene, zero-blast-radius non-blocking isolation, symptom-based multi-window burn rate alerts, and trace-based RCA feedback loops across any software archetype without limiting agent creativity or restricting to any technology.
-- **Performance Engineering & Capacity Optimization**: Load [`.agents/skills/performance-engineering/SKILL.md`](.agents/skills/performance-engineering/SKILL.md). Enforces measurement-first optimization, the 8 Universal Performance Invariants, proactive budgeting vs reactive profiling, Amdahl's Law alignment, distribution percentiles ($P_{99}$), coordinated omission defense, the 5-tier solution hierarchy, and automated regression shielding across any software archetype without limiting agent creativity or restricting to any technology.
-- **Software Maintenance & System Vitality**: Load [`.agents/skills/maintenance/SKILL.md`](.agents/skills/maintenance/SKILL.md). Enforces continuous deterioration detection, the 8 Universal Maintenance Invariants, the Separation Law, evidence-backed dead code excision with graph-oriented reachability ($C_{\text{dead}} \ge 0.95$), leaf-first reverse topological deletion, mathematical technical debt valuation ($I_{\text{debt}}$), technology radar governance, agent instruction & skill hygiene under the Invariant Shield, and Arsenal boundary routing without limiting agent creativity or restricting to any technology.
-- **Incident Response & Operational Crisis Management**: Load [`.agents/skills/incident-response/SKILL.md`](.agents/skills/incident-response/SKILL.md). Enforces the 12-Phase Timeless Lifecycle, the 8 Universal Incident Response Invariants, the Safe Containment Gate, mathematical severity scoring ($S = w_I I + w_U U + w_B B$), the 6 Adaptive Cognitive Sizing Modes, tokenized Incident Command leases, Bayesian hypothesis elimination, blameless causal factor reconstruction, and the Clean Incident Stopping Contract without limiting agent creativity or restricting to any specific vendor or technology.
+| Skill | Activate When |
+| :--- | :--- |
+| [`requirements-analysis`](.agents/skills/requirements-analysis/SKILL.md) | Receiving raw requirements, feature requests, bug reports, or spec clarification before coding. |
+| [`code-quality`](.agents/skills/code-quality/SKILL.md) | Writing, modifying, or reviewing code for defensive correctness. |
+| [`code-review`](.agents/skills/code-review/SKILL.md) | Reviewing PRs, diffs, commits, or conducting pre-merge audits. |
+| [`testing`](.agents/skills/testing/SKILL.md) | Writing tests, verifying bug fixes, validating features, or designing QA strategy. |
+| [`refactoring`](.agents/skills/refactoring/SKILL.md) | Behavior-preserving code restructuring, module decoupling, or debt cleanup. |
+| [`agent-evaluation`](.agents/skills/agent-evaluation/SKILL.md) | Final gate before declaring any task complete or submitting a PR. |
+| [`project-analysis`](.agents/skills/project-analysis/SKILL.md) | Exploring unfamiliar codebases, onboarding, or mapping architecture before changes. |
+| [`security-engineering`](.agents/skills/security-engineering/SKILL.md) | Designing, auditing, or hardening security posture across any system. |
+| [`github-pro`](.agents/skills/github-pro/SKILL.md) | Running Git/GitHub commands: commits, branches, PRs, tags, releases. |
+| [`docs-pro`](.agents/skills/docs-pro/SKILL.md) | Authoring or updating READMEs, API docs, ADRs, changelogs, or guides. |
+| [`multi-agent-orchestration`](.agents/skills/multi-agent-orchestration/SKILL.md) | Splitting work across parallel agents, fan-out dispatch, or worktree isolation. |
+| [`design-philosophy`](.agents/skills/design-philosophy/SKILL.md) | Visual structure, typography, color, spacing, layout aesthetics. |
+| [`ux-engineering`](.agents/skills/ux-engineering/SKILL.md) | User task flows, information architecture, cognitive load, interaction design. |
+| [`accessibility`](.agents/skills/accessibility/SKILL.md) | Inclusive access: screen readers, ARIA, keyboard navigation, motor/visual impairment. |
+| [`system-architecture`](.agents/skills/system-architecture/SKILL.md) | Designing systems, decomposing modules, defining contracts, or architecture reviews. |
+| [`api-design`](.agents/skills/api-design/SKILL.md) | Designing or evolving APIs: REST, gRPC, GraphQL, events, SDKs, CLI, MCP tools. |
+| [`data-management`](.agents/skills/data-management/SKILL.md) | Schema design, data modeling, migrations, pipeline idempotency, or data quality. |
+| [`planning`](.agents/skills/planning/SKILL.md) | Moving from requirements to executable implementation plans with task DAGs. |
+| [`dependency-management`](.agents/skills/dependency-management/SKILL.md) | Auditing dependencies, evaluating libraries, upgrading packages, or supply-chain security. |
+| [`solution-discovery`](.agents/skills/solution-discovery/SKILL.md) | Evaluating build-vs-adopt decisions before adding dependencies or custom code. |
+| [`infrastructure`](.agents/skills/infrastructure/SKILL.md) | Provisioning environments, IaC, state convergence, or drift reconciliation. |
+| [`configuration-management`](.agents/skills/configuration-management/SKILL.md) | Config schemas, precedence, secrets separation, environment parity. |
+| [`failure-recovery`](.agents/skills/failure-recovery/SKILL.md) | Agent-side failures: test failures, tool crashes, wrong assumptions, rollbacks. |
+| [`ci-cd`](.agents/skills/ci-cd/SKILL.md) | Build pipelines, automated verification, artifact packaging, or quality gates. |
+| [`release-management`](.agents/skills/release-management/SKILL.md) | What ships, when, versioning, changelogs, readiness scorecards. |
+| [`deployment`](.agents/skills/deployment/SKILL.md) | How artifacts reach environments: rollout, health checks, progressive delivery. |
+| [`observability`](.agents/skills/observability/SKILL.md) | Telemetry design, SLIs/SLOs, distributed tracing, alerting, or diagnostics. |
+| [`performance-engineering`](.agents/skills/performance-engineering/SKILL.md) | Profiling, load testing, latency budgets, capacity optimization. |
+| [`maintenance`](.agents/skills/maintenance/SKILL.md) | Dead code audits, tech debt valuation, system vitality, deprecation governance. |
+| [`incident-response`](.agents/skills/incident-response/SKILL.md) | Live/production failures affecting users: outages, degradations, crisis management. |
+
 - **Data Safety**: Always verify before running commands that could result in irreversible data loss.
 - **Reporting**: Keep routine responses concise; provide detailed structured breakdowns for milestones or architectural changes.
 
+
 ---
 
-## 2. General Principles
+## 2. Skill Composition & Safety Protocol
+
+### 2.1 Triviality Bypass
+If the task is a single-file edit under ~30 lines with obvious correctness (typo fix, import addition, comment edit, local variable rename), apply `code-quality` principles directly from memory without loading any SKILL.md. This avoids burning context on trivial changes. **Exception**: Changes to public APIs, exported symbols, or interface contracts are never trivial regardless of line count — always load the relevant skill.
+
+### 2.2 Conflict Resolution & Priority Ordering
+When two skills could both activate for the same task, apply these routing rules:
+
+| Ambiguous Scenario | Primary Skill | Routing Rule |
+| :--- | :--- | :--- |
+| Failure in agent's dev loop (test failure, tool crash, wrong assumption) | `failure-recovery` | Contained to agent's own process → failure-recovery |
+| Failure affecting live users or production services | `incident-response` | User-facing operational impact → incident-response |
+| Visual structure & aesthetics (typography, color, spacing) | `design-philosophy` | Perceptual physics & layout → design-philosophy |
+| User task flows & cognitive load (forms, navigation, JTBD) | `ux-engineering` | Interaction flows & mental models → ux-engineering |
+| Inclusive access (screen readers, ARIA, motor impairment) | `accessibility` | Assistive technology compliance → accessibility |
+| What ships & when (versioning, changelog, readiness) | `release-management` | Version identity & consumer protection → release-management |
+| How artifacts reach environments (rollout, health checks) | `deployment` | Progressive delivery & rollback → deployment |
+| Structural code restructuring | `refactoring` | Behavior-preserving code changes → refactoring |
+| Dead code, tech debt auditing, system vitality assessment | `maintenance` | Assessment & routing (routes to specialized skills for execution) |
+| Logical system design (modules, contracts, state authority) | `system-architecture` | Abstract structure & trade-offs → system-architecture |
+| Physical resource provisioning (VMs, IaC, networking, drift) | `infrastructure` | Concrete environment convergence → infrastructure |
+| Single-agent task decomposition into ordered steps | `planning` | Sequential task DAG for one agent → planning |
+| Parallel multi-agent fan-out across independent modules | `multi-agent-orchestration` | Worker isolation & supervision → multi-agent-orchestration |
+
+### 2.3 Global Safety Circuit Breaker
+Across ALL active skills in a session, the agent maintains a **global failure budget**:
+- **Maximum 5 total failed recovery attempts** across all skills before mandatory user escalation.
+- A "failed attempt" is any code mutation that fails post-verification (test failure, type error, runtime crash).
+- When the global budget expires: stop all mutations, preserve current state, and escalate to the user with a structured summary of all attempts and failures.
+- Individual skill budgets (e.g., failure-recovery's $N_{\max} \le 3$) still apply and may trigger earlier.
+
+### 2.4 Multi-Skill Activation Discipline
+When multiple skills activate for a single task:
+1. Load the **primary** skill's SKILL.md fully.
+2. For **secondary** skills, use the selective loading protocol:
+   - **Read**: YAML frontmatter, Invariants, Boundary notes, Stopping Contract.
+   - **Skip**: Lifecycle flowchart, Progressive Disclosure table, Cognitive Sizing table, Invariant Exception Protocol, Archetype Adaptation section, generic Guardrails (these follow the same meta-pattern as the primary skill).
+   - **Exception**: If the secondary skill's domain is unfamiliar, load it fully.
+3. If you have already read a skill in this session, apply its invariants and stopping contracts from memory. Only re-read if uncertain.
+4. When two skills define the same constant (e.g., hit target sizes, contrast thresholds), the **domain-specific skill's value takes precedence** (accessibility > design-philosophy for contrast; performance-engineering > system-architecture for latency budgets).
+5. Stopping contracts from ALL active skills must be satisfied before declaring completion. If they conflict, satisfy the stricter constraint.
+
+---
+
+## 3. General Principles
 
 1. **Pre-flight Inspection First**: Inspect environment, working directory, git state, and configuration before taking action.
 2. **Minimal Safe Action**: Never execute speculative, destructive, or bulk changes without verification.

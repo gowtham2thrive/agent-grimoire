@@ -76,6 +76,8 @@ To prevent cognitive overload on local/ephemeral tasks, summarize intent in exac
 > **Verification**: [Port / Socket / Process reachability verified: PASS]
 ```
 
+> **Boundary**: This skill owns *physical resource provisioning and state convergence* — IaC, networking, compute, drift reconciliation. For *logical system design* (module decomposition, API contracts, state authority), activate `system-architecture` instead.
+
 ---
 
 ## 4 · The 8 Universal Infrastructure Invariants
@@ -148,17 +150,17 @@ No single static rulebook can accommodate 100% of physical or operational anomal
 
 ## 6 · Universal Archetype Adaptation
 
-The 8 invariants adapt dynamically across every computational archetype by abstracting tools to universal infrastructure roles:
+The 8 invariants adapt dynamically across every computational archetype by abstracting tools to universal infrastructure roles. For specific technology selections, see references for tool-specific guidance:
 
-| Architectural Role | Public Cloud (AWS / Azure / GCP) | Cloud-Native & Kubernetes | On-Premises & Bare Metal | Serverless & Edge Platforms | AI Swarms & Compute Fabrics |
+| Architectural Role | Public Cloud | Cloud-Native | On-Premises & Bare Metal | Serverless & Edge | AI Swarms & Compute Fabrics |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Declarative Specification** | Terraform HCL / OpenTofu / Pulumi / CloudFormation / Bicep | Kubernetes CRDs / Helm / Kustomize / Crossplane | Ansible / PXE / Cloud-Init / OpenStack Heat / Terraform Libvirt | Serverless Framework / SST / Cloudflare Wrangler / Fastly VCL | Ray Cluster Manifests / Slurm batch scripts / RunPod / Lambda Labs APIs |
-| **State Storage & Locking** | Cloud Object Store + Lock DB (S3/DynamoDB, GCS, Azure Blob) | Kubernetes `etcd` / Cluster API state / Operator CR status | Remote Consul cluster / Git repository / NFS lockfile | Edge KV / Managed Platform State (Cloudflare, Vercel) | Centralized Orchestrator DB / Shared persistent storage mount |
-| **Network Perimeter** | VPCs, Subnets, Security Groups, Transit Gateways, DirectConnect | NetworkPolicies, CNI (Cilium, Calico), Service Mesh (Istio), Ingress | VLANs, VXLANs, BGP routers, Hardware Firewalls, WireGuard | Edge Routing, Cloudflare Tunnels, Zero Trust Access | Private InfiniBand / RoCE networks, Head-node proxy routing |
-| **Compute Primitive** | Virtual Machines (EC2/GCE), Managed Clusters (EKS/GKE), ECS | Pods, Nodes, DaemonSets, StatefulSets | Physical Blades, Supermicro Chassis, KVM/Proxmox Hypervisors | Edge Workers, Ephemeral V8 Isolates, Serverless Functions | GPU Nodes (H100/A100), Tensor Cores, Distributed Workers |
-| **Persistent Storage** | Block (EBS/PD), File (EFS/Filestore), Object (S3/GCS) | PersistentVolumes, CSI Drivers, Ceph/Rook, Longhorn | SAN / NAS, ZFS pools, Hardware RAID, Ceph clusters | Managed Object Storage (R2, S3), Serverless Postgres (Neon) | Shared high-throughput NVMe scratch arrays, Lustre, GPFS |
-| **Identity & Access** | Cloud IAM Roles, Service Accounts, Instance Profiles, OIDC | ServiceAccounts, RBAC Roles, SPIFFE/SPIRE identities | LDAP / Active Directory, Kerberos, SSH Keyrings, sudoers | Ephemeral JWTs, Edge Worker API Tokens | MCP Tool Auth tokens, Swarm worker mutual TLS certs |
-| **Verification Probe** | CloudWatch metrics, EC2 instance status checks, VPC Flow Logs | Kubelet readiness/liveness, Kube-state-metrics | BMC/IPMI sensors, ping/SSH socket checks, syslog | Edge invocation status, cold-start latency, synthetic pings | GPU utilization (`nvidia-smi`), worker heartbeat, Ray dashboard |
+| **Declarative Specification** | IaC declarative engines | Cluster resource definitions | Config management and provisioning | Serverless application models | Cluster batch manifests |
+| **State Storage & Locking** | Cloud object store + lock DB | Distributed KV stores | Remote cluster / NFS lockfile | Managed platform state | Centralized orchestrator DB / Shared mount |
+| **Network Perimeter** | Virtual networks, subnets, security groups | Network policies, service mesh, ingress | VLANs, BGP routers, hardware firewalls | Edge routing, zero trust access | Private interconnects, proxy routing |
+| **Compute Primitive** | Virtual machines, managed clusters | Pods, nodes, replica sets | Physical blades, hypervisors | Edge workers, serverless functions | GPU nodes, distributed workers |
+| **Persistent Storage** | Block, file, object storage | Persistent volumes, CSI drivers | SAN/NAS, hardware RAID | Managed object and DB storage | Shared high-throughput NVMe scratch arrays |
+| **Identity & Access** | Cloud IAM roles, service accounts | Service accounts, RBAC roles | LDAP, SSH keyrings | Ephemeral JWTs, edge tokens | Mutual TLS certs, auth tokens |
+| **Verification Probe** | Cloud metrics, status checks, flow logs | Readiness and liveness probes | BMC sensors, socket checks, syslog | Synthetic pings, edge latency | Resource utilization, worker heartbeats |
 
 ---
 

@@ -99,14 +99,15 @@ Regardless of technology (Web, iOS, Android, Flutter, TUI, Canvas, Spatial), eve
 * *(State matrices & transition rules: [`references/state-and-fluidity.md`](references/state-and-fluidity.md).)*
 
 ### 3.7 Ergonomic Reachability & Perceptual Accessibility
-* **Fitts's Law Optimization**: High-frequency triggers must have large hit areas and sit in natural reach zones (bottom screen on mobile, primary corners/edges on desktop). Dangerous actions require deliberate friction.
-* **Hit Target Invariant**: Minimum physical interactive target size of $\ge 44 \times 44\text{pt}$ / $9\text{mm}$, with at least $8\text{pt}$ spacing between adjacent interactive controls.
+* Apply interactive target sizing, feedback timing, and contrast thresholds per [`references/shared-ui-constants.md`](references/shared-ui-constants.md).
 * **Visible Focus Affirmation**: Never suppress keyboard focus rings without providing an enhanced, high-contrast, accessible replacement focus state.
 
 ### 3.8 Domain Intent, Brand Warmth & Aesthetic Expression
 * **Zero Aesthetic Dogmatism**: The skill does not mandate a single corporate house style. Agents are actively empowered to choose between **Precision Cockpit**, **Swiss Industrial**, **Humanist Editorial**, **Tactile Playful**, or **Neo-Brutalist** archetypes based on domain intent.
 * **Delight and Tactile Joy**: Warmth, organic curves, playful micro-physics, and friendly micro-copy are first-class design values alongside precision and restraint.
 * *(Archetype catalog & emotional design: [`references/intent-and-archetypes.md`](references/intent-and-archetypes.md).)*
+
+> **Boundary**: This skill owns *visual structure and aesthetic judgment*. For *user task flows and cognitive load optimization*, activate `ux-engineering`. For *inclusive access for disabled users* (screen readers, ARIA, motor impairment), activate `accessibility`.
 
 ---
 

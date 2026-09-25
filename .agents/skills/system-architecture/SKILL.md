@@ -73,6 +73,8 @@ To prevent philosophical essay bloat on small components, summarize structural i
 > **Failure Boundary**: [Local catch / Bubbled error / Degraded fallback]
 ```
 
+> **Boundary**: This skill owns *logical system design* — module decomposition, API contracts, state authority, and trade-off analysis. For *physical resource provisioning* (VMs, IaC, networking, drift reconciliation), activate `infrastructure` instead.
+
 ---
 
 ## 4 · The 7 Universal Architecture Invariants

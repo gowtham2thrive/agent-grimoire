@@ -4,7 +4,9 @@ description: >-
   Universal, timeless failure recovery, self-healing, and resilience engineering protocol.
   Use when debugging errors, handling test failures, resolving tool exceptions, recovering
   from crashes, backtracking invalidated assumptions, executing rollbacks, or managing
-  multi-agent escalations across any language, runtime, or framework. Enforces the 7 Universal
+  multi-agent escalations across any language, runtime, or framework. This skill is for
+  agent-side development failures (test failures, tool crashes, wrong assumptions, coding errors),
+  NOT for live production incidents affecting end users. Enforces the 7 Universal
   Recovery Invariants, 3-tier fault attribution (infrastructure vs cognitive vs domain),
   the 6-Fork Decision Lattice, transactional state reversibility, monotonic convergence,
   and anti-thrashing circuit breakers without limiting agent creativity or micro-managing LLM reasoning.
@@ -69,7 +71,7 @@ Size your recovery protocol to the scope, risk, and blast radius of the failure.
 | **`subagent-recovery`** | Delegated worker stall, hallucination, contract breach, or subagent crash. | Soft/Hard restart ladder, context compaction, worktree re-spawn, `needs_attention` queue. | Worker diagnostic post-mortem in orchestrator transcript. |
 | **`backtrack-pivot`** | Invalid architectural premise, wrong library chosen, fundamental spec mismatch. | Assumption DAG walk, derived artifact pruning, checkpoint rollback, re-plan from fork ($K \le 2$). | `RECOVERY_PIVOT.md` (Invalidated premise $\to$ new hypothesis $\to$ pruned artifacts). |
 | **`session-rescue`** | Agent context saturation ($> 80\%$ window), process crash, orphan worktrees. | Transcript compaction, stale log purging, orphan worktree triage, Restore vs Recompute execution. | Clean session resumption header. |
-| **`forensic-audit`** | Flaky/intermittent test (Heisenbug), production incident, memory leak, race condition. | Stop-the-line diagnostic capture, statistical repetition harness ($N \ge 5$), binary search bisect, permanent shield. | `POST_MORTEM.md` (Timeline, root cause, proof of resolution, regression shield). |
+| **`forensic-audit`** | Flaky/intermittent test (Heisenbug), persistent test failure, complex multi-file regression, memory leak, race condition. | Stop-the-line diagnostic capture, statistical repetition harness ($N \ge 5$), binary search bisect, permanent shield. | `POST_MORTEM.md` (Timeline, root cause, proof of resolution, regression shield). |
 
 ### The 3-Line Recovery Intent Protocol (For `micro-fix` Mode)
 To eliminate bureaucratic overhead on small, deterministic fixes, summarize intent in exactly 3 lines directly before emitting the edit:
@@ -78,6 +80,8 @@ To eliminate bureaucratic overhead on small, deterministic fixes, summarize inte
 > **Hypothesis**: [Why this edit resolves the defect without side effects]
 > **Verification**: [Deterministic command run to confirm, e.g., `pytest tests/test_utils.py`]
 ```
+
+> **Boundary**: If the failure affects live users or production services, activate `incident-response` instead. This skill handles failures within the agent's own development and test loop.
 
 ---
 
@@ -89,7 +93,7 @@ Regardless of language, framework, or execution runtime, every resilient computa
 Repeating a failed operation without a revised hypothesis, a modified environment, or an altered state is non-deterministic gambling. An agent must never execute an identical mutation or tool call repeatedly. Every recovery intervention must explicitly select from the 6-Fork Decision Lattice based on causal classification.
 
 ### 4.2 Invariant 2: Forensic Evidence Preservation (The Stop-the-Line Rule)
-Before mutating code, cleaning directories, or re-running destructive commands, the agent must preserve the failure signature, exit codes, stderr/stdout streams, call stacks, and working diff. Never destroy forensic evidence in a rush to fix.
+Before mutating code, cleaning directories, or re-running destructive commands, the agent must preserve the failure signature, exit codes, stderr/stdout streams, call stacks, and working diff. **Security caveat**: Before archiving forensic evidence, scrub any credentials, API keys, or tokens that may appear in error output. Preserve the diagnostic value while removing secrets. Never destroy forensic evidence in a rush to fix.
 
 ### 4.3 Invariant 3: Transactional Boundary & State Reversibility
 Every multi-file edit, risky refactor, or complex tool execution must be treated as an atomic unit of work with a defined checkpoint. If an intervention fails to converge, the system must cleanly restore the pre-transaction baseline without leaving orphan debris or half-mutated files.

@@ -8,6 +8,7 @@ description: >-
   Universal Maintenance Invariants, 7-phase closed-loop lifecycle, 6 cognitive sizing modes,
   mathematical debt valuation ($I_{\text{debt}}$), graph-oriented reachability confidence ($C_{\text{dead}}$),
   and Arsenal boundary routing without limiting agent creativity or restricting to any specific technology.
+  Routes structural restructuring to `refactoring` and package health to `dependency-management`.
 ---
 
 # Software Maintenance: Universal System Vitality & Technical-Debt Protocol
@@ -93,6 +94,8 @@ To eliminate bureaucratic overhead on small, localized maintenance tasks, summar
 > **Invariance Verification**: [Test suite run or typecheck command confirming zero behavioral regression]
 ```
 
+> **Boundary**: This skill owns *system vitality assessment, dead code identification, and technical debt governance*. It routes structural code changes to `refactoring`, package lifecycle to `dependency-management`, and security surface decay to `security-engineering`. It does not execute those remediations itself.
+
 ---
 
 ## 4 · The 8 Universal Maintenance Invariants
@@ -106,9 +109,7 @@ $$\frac{d\text{Entropy}}{dt} > 0 \implies \text{Active Maintenance is Mandatory}
 - Neglecting maintenance converts operational flexibility into compounding technical-debt interest.
 
 ### 4.2 Invariant 2: The Separation Law (Maintenance $\oplus$ Feature Churn)
-$$\text{Change Intent} = \text{System Maintenance (Hygiene/Debt)} \oplus \text{Behavioral Feature / Bugfix}$$
-- A commit or pull request must **never** bundle dead-code excision, dependency modernization, or architectural debt cleanup with behavioral business logic changes.
-- Mixing the two destroys `git bisect`, introduces ambiguous regressions, and doubles reviewer cognitive load.
+Structural code restructuring follows the Separation Law defined in [`refactoring`](../refactoring/SKILL.md).
 
 ### 4.3 Invariant 3: Evidence-Before-Mutation & Intentionality Preservation (Conservative Ambiguity Rule)
 No code, configuration, or instruction shall be deleted or deprecated based on speculative assumption:
@@ -130,10 +131,7 @@ $$I_{\text{debt}}(m) = C_{\text{complexity}}(m) \times F_{\text{churn}}(m) \time
 - Technical debt must be tracked in machine-readable registers (`TECH_DEBT.md`) or issue queues with explicit risk and interest ratings.
 
 ### 4.6 Invariant 6: Technology Lifecycle & Justified Retirement
-Deprecation must evaluate operational drag and technical debt interest against replacement cost:
-$$\text{Retire}(T) \implies \text{ObsolescenceSignal}(T) \land \exists T_{\text{successor}} \land \text{Ready}(T_{\text{successor}})$$
-- No technology, framework, or library shall be retired without demonstrating an upstream deprecation/abandonment signal, a vetted successor, and an explicit migration boundary adapter.
-- Deprecation follows a staged cadence: Announcement $\to$ Soft Warning $\to$ Hard Compile Warning $\to$ Excision.
+Technology radar, package health, and deprecation governance are managed by [`dependency-management`](../dependency-management/SKILL.md). Maintenance identifies outdated components and routes them for modernization.
 
 ### 4.7 Invariant 7: Meta-Agent Instruction & Skill Hygiene
 Agent instructions (`AGENTS.md`), system prompts, and skill packages are software artifacts subject to semantic decay:

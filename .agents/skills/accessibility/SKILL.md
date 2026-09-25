@@ -93,6 +93,8 @@ To prevent philosophical essay bloat, summarize accessibility intent in exactly 
 > **AT Semantics**: [State attributes: expanded/selected/invalid] · [Live annunciation: polite/assertive/none]
 ```
 
+> **Boundary**: This skill owns *inclusive access for disabled users* (screen readers, ARIA, keyboard navigation, motor impairment). For *visual structure and aesthetics*, activate `design-philosophy`. For *user task flows and cognitive load*, activate `ux-engineering`.
+
 ---
 
 ## 4 · The 8 Universal Accessibility Invariants ($\mathcal{A}_1 - \mathcal{A}_8$)
@@ -137,10 +139,7 @@ $$\text{LiveAnnounce}(\text{Event}) \implies \Delta t_{\text{throttle}} \ge 1.0\
 ### 4.6 Invariant 6: Orthogonal Sensory Redundancy & Dual Contrast ($\mathcal{A}_6$)
 $$\text{InformationChannel} \ge 2 \quad (\text{e.g., Color} \land \text{Icon} \land \text{Text})$$
 * **Multimodal Encoding**: Essential meaning, status, or hierarchy must never be communicated through a single sensory channel. Color must be reinforced with icons or text; audio cues must be paired with visual captions.
-* **The Dual Contrast Model**:
-  1. *Regulatory Gate*: Satisfy WCAG 2.2 AA ratios ($4.5:1$ for normal text, $3:1$ for large text and UI components).
-  2. *Perceptual Physics Gate*: Respect APCA luminance polarity ($L^c \ge 60$ for body text, $L^c \ge 45$ for large headers), accounting for spatial frequency and dark-mode backgrounds.
-* **Reflow & Zoom Resilience**: Layout and typography must survive $200\%$ font scaling and $400\%$ zoom reflow without horizontal scrolling, overlapping text, or clipping.
+* Contrast thresholds and interactive target sizing defined in `design-philosophy`'s [`references/shared-ui-constants.md`](../design-philosophy/references/shared-ui-constants.md).
 
 ### 4.7 Invariant 7: Non-Destructive Error Forgiveness & Reversible Recovery ($\mathcal{A}_7$)
 $$\text{ErrorUI} = \text{Cause} \oplus \text{Impact} \oplus \text{ActionableRemedy} \quad \land \quad \text{DestructiveAction} \implies \text{ReversibleUndo}$$
@@ -159,20 +158,7 @@ $$\text{Claim}(\text{Accessible}) \iff \text{EvidenceTier} \ge \mathcal{E}_3 \qu
 
 Translate universal accessibility moves directly into idiomatic primitives for your target technology:
 
-```
-Universal Accessibility Move:
-"Implement an interactive disclosure dialog that traps focus, announces its title on open, dismisses on Escape, and restores focus to the triggering element."
-```
-
-| Technology Platform | Native Primitive & Semantics | Keyboard & Focus Trapping | Live Annunciation & State | Reflow & Forced Colors |
-| :--- | :--- | :--- | :--- | :--- |
-| **Modern Web** (HTML / React / Vue) | Native `<dialog>` or `role="dialog"` + `aria-labelledby` | Focus trap loop; listen `keydown` for `Escape` | `aria-modal="true"`; `aria-live="polite"` for dynamic updates | `rem` font units; `@media (forced-colors: active)` border styling |
-| **Mobile iOS** (SwiftUI / UIKit) | `.accessibilityElement()`, `.accessibilityAddTraits(.isModal)` | VoiceOver rotor order; `.accessibilityFocused($isFocused)` | `UIAccessibility.post(notification: .screenChanged, ...)` | Dynamic Type (`@ScaledMetric`); Reduce Motion query |
-| **Mobile Android** (Compose / Views) | `Modifier.semantics { heading(); paneTitle = "..." }` | `FocusRequester`; `Modifier.focusProperties()` | `Modifier.liveRegion(LiveRegionMode.Polite)` | Sp font units; `LocalDensity.current` reflow |
-| **Desktop Native** (WinUI / macOS) | `AutomationPeer` (WinUI) / `NSAccessibilityProtocol` | Window modal pump; UIA modal pattern; Tab sequence | UIA `LiveSetting.Polite`; `NSAccessibilityPostNotification` | Windows High Contrast brushes; macOS display scaling |
-| **Terminal TUI / CLI** (Rust / Go / Python) | High-contrast ANSI brackets `[ > Button < ]`, clear text | Direct key bindings (`Tab`, `Esc`); explicit cursor cell | Status bar text banner; optional terminal bell `\a` | SIGWINCH terminal resize; fallback `--plain` stream mode |
-| **Canvas / WebGL / Spatial** (2D/3D / Games) | Parallel off-screen virtual accessibility tree | Virtual hit-test grid; arrow key spatial navigation | Synthesized speech / audio cue hook in game loop | Vector UI scaling; 1-click **Tabular Alternative Mode** |
-| **AI / Agentic UI** (Generative UI / Chat) | Semantic card landmarks with level 2/3 headers | Keyboard cancel shortcut (`Esc` / `Cmd+.`); focus on prompt | Debounced lifecycle announcements; zero per-token spam | Scalable container flex layout; responsive prompt bar |
+*(See [`references/archetype-adaptation.md`](references/archetype-adaptation.md) for platform-specific adaptation guidance.)*
 
 ---
 
@@ -189,38 +175,16 @@ $$\text{Finding} = [\text{Component/Line Anchor}] + [\text{User Task & Barrier}]
 * **Severity 3 (Major Barrier)**: Prevents a specific category of users (keyboard-only or screen-reader) from completing the task without human assistance.
 * **Severity 4 (Catastrophic Blocker)**: System lockout, keyboard trap, unrecoverable data loss, or physical safety violation (e.g., seizure-inducing flashing). Must fix immediately.
 
-### Sample Audited Finding Format
+### Sample Finding Template
 ```markdown
-### [FINDING-A11Y-01] Modal Dialog Leaks Focus into Inactive Background DOM
-- **Anchor**: `src/components/CheckoutModal.tsx:L32-L78`
-- **User Task & Barrier**: Screen-reader user attempting to complete purchase cannot access checkout inputs because tab focus navigates hidden background links.
-- **Violated Invariant**: Invariant 4 ($\mathcal{A}_4$ Deterministic Focus & The LIFO Stack) · WCAG 2.2 SC 2.4.3 (Focus Order)
-- **Severity**: 3 (Major Barrier)
-- **Evidence Tier**: $\mathcal{E}_3$ (Rendered Surface & Computed Accessibility Tree Inspection)
-- **Observation**: Custom `<div>` modal renders without trapping focus, lacking `aria-modal="true"`, and fails to return focus to the checkout trigger upon pressing Escape.
-- **Remediation**:
-```tsx
-// Replace custom div with native <dialog> element for automatic focus containment
-export function CheckoutModal({ isOpen, onClose }: ModalProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (isOpen) {
-      dialog?.showModal(); // Enforces native focus trap, backdrop inertness, and Esc listener
-    } else {
-      dialog?.close();
-    }
-  }, [isOpen]);
-
-  return (
-    <dialog ref={dialogRef} onCancel={onClose} aria-labelledby="modal-title">
-      <h2 id="modal-title">Complete Checkout</h2>
-      {/* Form content */}
-    </dialog>
-  );
-}
-```
+### [FINDING-A11Y-XX] <Title>
+- **Anchor**: `<file:line>`
+- **User Task & Barrier**: <Who is blocked and how>
+- **Violated Invariant**: <$\mathcal{A}_N$> · <WCAG SC>
+- **Severity**: <0–4>
+- **Evidence Tier**: <$\mathcal{E}_N$>
+- **Observation**: <What is broken>
+- **Remediation**: <Concrete fix with code>
 ```
 
 ---

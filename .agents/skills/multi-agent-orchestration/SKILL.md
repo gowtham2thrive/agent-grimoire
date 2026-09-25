@@ -47,6 +47,8 @@ Before decomposing, classify the task into exactly one mode. Two questions decid
 
 *(Deep topologies, trade-off analysis, and visual diagrams: [`references/topologies.md`](references/topologies.md).)*
 
+> **Boundary**: This skill owns *parallel multi-agent coordination* — topology selection, worker isolation, bounded supervision, and holistic integration. For *single-agent sequential task decomposition* into ordered steps with verification triads, activate `planning` instead.
+
 ---
 
 ## 3 · Foundation-First Discipline

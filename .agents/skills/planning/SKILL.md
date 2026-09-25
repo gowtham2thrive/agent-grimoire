@@ -80,6 +80,8 @@ When operating in `micro` mode, emit this concise block directly preceding code 
 > **Verification**: `[Deterministic test command or terminal check confirming resolution]`
 ```
 
+> **Boundary**: This skill owns *single-agent task decomposition* into ordered execution steps with verification triads. For *parallel multi-agent fan-out* across independent modules with worktree isolation, activate `multi-agent-orchestration` instead.
+
 ---
 
 ## 4 · The 7 Universal Planning Invariants

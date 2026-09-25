@@ -69,6 +69,8 @@ To prevent philosophical essay bloat, summarize UX intent in exactly 3 structure
 > **Error Strategy**: [Inline prevention / Non-blocking recovery / Reversible undo]
 ```
 
+> **Boundary**: This skill owns *user task flows, information architecture, and cognitive load optimization*. For *visual structure and aesthetics* (typography, color, spacing), activate `design-philosophy`. For *inclusive access for disabled users* (screen readers, ARIA), activate `accessibility`.
+
 ---
 
 ## 4 · The 8 Universal UX Invariants
@@ -84,12 +86,7 @@ Regardless of technology (Web, iOS, Android, Flutter, TUI, Desktop, Canvas, or A
 * **Implementation Model $\ne$ Mental Model**: Internal software architecture (database schemas, microservice names, internal caching states) must never leak into the interface. Present concepts in the user's natural domain vocabulary.
 
 ### 4.3 Invariant 3: Deterministic Feedback & Perceptual Latency (Doherty & Fitts)
-* **The Doherty Threshold ($\le 400\text{ms}$)**: Productivity soars when computer and user interact at a pace that keeps cognitive flow uninterrupted:
-  - $\le 100\text{ms}$: Perceived as instantaneous (button state change, keydown acknowledgment).
-  - $100\text{ms} - 400\text{ms}$: Noticeable delay; requires micro-feedback (subtle spinner, pulse, or streaming token).
-  - $> 400\text{ms}$: Perceived as a wait; requires skeleton placeholder or determinate progress bar.
-  - $> 10\text{s}$: Requires asynchronous background decoupling with persistent notification upon completion.
-* **Fitts's Law ($MT = a + b \log_2(2D / W)$)**: The time to acquire a target is a function of distance ($D$) and size ($W$). High-frequency triggers must have generous target bounds and sit in natural reach zones (screen edges, corners, bottom thumb reach).
+* Apply interactive target sizing and feedback timing thresholds per `design-philosophy`'s [`references/shared-ui-constants.md`](../design-philosophy/references/shared-ui-constants.md).
 
 ### 4.4 Invariant 4: Reversible Action & Hostile Error Tolerance (Tesler & Postel)
 * **Undo Over Confirmation Modals**: Asking "Are you sure?" causes modal fatigue, leading users to reflexively click "Yes" without reading. Make destructive actions instantly reversible (Undo toast / Trash snapshot) rather than interrogative.

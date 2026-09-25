@@ -76,6 +76,8 @@ To prevent philosophical bloat on small components, summarize release intent in 
 > **Verification Gate**: [Clean test/build command output: PASS]
 ```
 
+> **Boundary**: This skill owns *what ships, when, and under what version identity* (readiness scorecards, version encoding, changelog, consumer protection). It does NOT own *how artifacts reach environments* — that is `deployment`'s responsibility. Release-management produces a versioned release artifact; deployment consumes it.
+
 ---
 
 ## 4 · The 8 Universal Release Invariants

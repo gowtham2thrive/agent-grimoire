@@ -37,6 +37,8 @@ flowchart LR
    - **If Red**: Revert immediately to the last green state; do not try to "debug forward" through compounded structural errors.
 5. **Invariance Verification & Cleanup**: Verify that public interfaces, return schemas, error types, and execution semantics remain identical (see [`references/invariance-verification.md`](references/invariance-verification.md)).
 
+> **Boundary**: This skill owns *behavior-preserving code restructuring* under the Separation Law. For *system vitality assessment, dead code identification, and tech debt governance* (the decision of WHAT to refactor), activate `maintenance` instead.
+
 ---
 
 ## 2 · Mode Selection (Cognitive Sizing)

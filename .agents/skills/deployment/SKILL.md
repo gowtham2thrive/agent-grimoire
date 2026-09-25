@@ -79,6 +79,9 @@ To prevent philosophical bloat on small components, summarize deployment intent 
 > **Health Check**: [Liveness Verification Output: PASS]
 ```
 
+> **Boundary**: This skill owns *how artifacts reach target environments* (rollout strategy, health verification, progressive delivery, rollback). It does NOT own *what ships or when* — that is `release-management`'s responsibility. Deployment begins AFTER release-management has produced a versioned, signed-off release artifact.
+
+
 ---
 
 ## 4 · The 7 Universal Deployment Invariants

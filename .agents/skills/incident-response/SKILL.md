@@ -6,6 +6,7 @@ description: >-
   executing safe containment, investigating causal factors, communicating across stakeholders, authoring blameless
   post-incident reviews (PIR), or hardening executable runbooks across any software archetype (cloud, distributed,
   monolithic, serverless, data pipelines, embedded, AI agent swarms) without vendor bias or cognitive limitations.
+  This skill is for live/production system failures affecting users or operations, NOT for agent-side development errors (test failures, compilation errors, tool exceptions).
 ---
 
 # Incident Response: Universal Operational Crisis Management & Systemic Resilience Protocol
@@ -108,6 +109,8 @@ When resolving isolated, low-risk operational anomalies, eliminate bureaucratic 
 > **Containment**: [Reversible action to stabilize, e.g., Throttle batch ingestion queue concurrency from 10 to 4]
 > **Verification**: [External signal proving recovery, e.g., Retry rate drops to < 1% within 2m with zero dropped tasks]
 ```
+
+> **Boundary**: If the failure is contained within the agent's own development loop (test failures, compilation errors, tool crashes), activate `failure-recovery` instead. This skill handles operational failures affecting live systems and users.
 
 ---
 
