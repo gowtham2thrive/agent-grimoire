@@ -56,6 +56,12 @@ Agent Grimoire provides an integrated suite of battle-tested capabilities coveri
 | **`github-pro`** | Mechanics | Git and GitHub workflow automation, intent disambiguation, pre-flight safety checks, and release milestone management. | [`.agents/skills/github-pro/SKILL.md`](.agents/skills/github-pro/SKILL.md) |
 | **`docs-pro`** | Knowledge | Architecture playbooks, ADRs, READMEs, Diátaxis framework, and anti-drift synchronization. | [`.agents/skills/docs-pro/SKILL.md`](.agents/skills/docs-pro/SKILL.md) |
 | **`design-philosophy`** | Interface | Values -> Principles -> Moves, perceptual physics, Gestalt grouping, typographic rhythm, 60-30-10 chromatic restraint, and scaled state completeness without limiting artistic creativity. | [`.agents/skills/design-philosophy/SKILL.md`](.agents/skills/design-philosophy/SKILL.md) |
+| **`ux-engineering`** | Ergonomics | User goal defense, 8 Universal UX Invariants, HCI empirical laws, information architecture, interaction mechanics, and usability auditing. | [`.agents/skills/ux-engineering/SKILL.md`](.agents/skills/ux-engineering/SKILL.md) |
+| **`system-architecture`** | Structure | 7 Universal Architecture Invariants, constraint-first envelopes, deterministic state authority, acyclic module DAGs, and ADR discipline. | [`.agents/skills/system-architecture/SKILL.md`](.agents/skills/system-architecture/SKILL.md) |
+| **`dependency-management`** | Supply Chain | 7 Universal Dependency Invariants, transitive tree cartography, pre-adoption gating, script sandboxing, and reachability-based triage. | [`.agents/skills/dependency-management/SKILL.md`](.agents/skills/dependency-management/SKILL.md) |
+| **`solution-discovery`** | Strategy | Triviality Threshold, Framework-First inspection, 5-Tier Solution Spectrum, 10-axis candidate evaluation, and anti-corruption adapters. | [`.agents/skills/solution-discovery/SKILL.md`](.agents/skills/solution-discovery/SKILL.md) |
+| **`configuration-management`** | Operations | 7 Universal Configuration Invariants, deterministic precedence lattices, schema validation, and secrets vs. config separation. | [`.agents/skills/configuration-management/SKILL.md`](.agents/skills/configuration-management/SKILL.md) |
+| **`failure-recovery`** | Resilience | Decision-centric self-healing, 7 Recovery Invariants, 3-tier fault attribution, assumption backtracking, and convergence verification. | [`.agents/skills/failure-recovery/SKILL.md`](.agents/skills/failure-recovery/SKILL.md) |
 
 ---
 
