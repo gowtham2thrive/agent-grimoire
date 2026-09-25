@@ -7,6 +7,9 @@ description: >-
   (requirements traceability, static types, test suite execution, diff sanity,
   and negative boundary validation), assumption auditing, and strict evidence
   certification.
+  Do not activate for pure read-only code exploration or exploratory brainstorming tasks
+  where no code or state was modified (use project-analysis or answer directly), or for
+  active in-progress failure diagnosis during implementation (use failure-recovery).
 ---
 
 # Agent Evaluation: Task Verification Gate & Self-Audit Protocol
@@ -23,7 +26,7 @@ Before declaring success or reporting completion to the user, every task must pa
 flowchart TD
     TASK["Task Execution Completed"] --> G1["Gate 1: Requirement Traceability<br/>(100% user criteria satisfied? No dropped requirements?)"]
     G1 -->|Fail| R1["Re-open Implementation"]
-    G1 -->|Pass| G2["Gate 2: Static Analysis & Types<br/>(tsc, mypy, cargo check, linter exit 0)"]
+    G1 -->|Pass| G2["Gate 2: Static Analysis & Types<br/>(project compiler, typechecker, linter exit 0)"]
     G2 -->|Fail| R2["Fix Compilation / Types"]
     G2 -->|Pass| G3["Gate 3: Test Suite Execution<br/>(Unit + Regression suite passes 100%)"]
     G3 -->|Fail| R3["Diagnose & Fix Test Failure"]
@@ -40,8 +43,8 @@ flowchart TD
 * If any requirement was dropped, modified, or postponed, disclose it explicitly.
 
 ### Gate 2: Static Analysis & Types
-* Run the project's native compiler and type-checker (`tsc --noEmit`, `mypy`, `cargo check`, `go vet`).
-* Must exit with code `0`. Zero type errors, zero compiler warnings.
+* Run the project's configured compiler, typechecker, or linter (e.g. `tsc --noEmit`, `mypy`, `cargo check`, `go vet`, or the repository's configured build/lint task).
+* Must exit with code `0`. Zero type errors, zero compiler warnings. In dynamic environments without a compiler, execute the project's standard static linter or syntax verification.
 
 ### Gate 3: Test Suite Execution
 * Run the target module's scoped tests AND the full workspace regression test suite.
@@ -78,7 +81,7 @@ When a gate fails, execute disciplined recovery rather than thrashing:
 2. **Step 2 (Localize)**: Determine whether the failure was caused by the new code, a missing mock setup, or a broken assumption.
 3. **Step 3 (Surgical Fix)**: Apply the minimal necessary patch to resolve the failure.
 4. **Step 4 (Re-Verify)**: Re-run the failed gate from the beginning. Never skip forward to Gate 5 if Gate 2 or 3 failed.
-5. **Step 5 (Escalate if Stuck)**: If three remediation attempts fail, stop calling mutating tools, summarize the blocker with exact logs and citations, and ask the user for guidance.
+5. **Step 5 (Escalate if Stuck)**: If three remediation attempts fail, invoke `failure-recovery` or halt mutations, summarize the blocker with exact logs and citations, and ask the user for guidance.
 
 ---
 
@@ -88,3 +91,15 @@ When completing major milestones or submitting complex changes, summarize the ve
 - **Citations**: Line-anchored references for all key implementations.
 - **Commands Executed**: Exact shell commands and exit codes.
 - **Diff Summary**: Lines added, removed, and files modified.
+
+---
+
+## 5 · The Clean Evaluation Stopping Contract
+
+An evaluation audit is strictly **COMPLETE** only when:
+1. **100% Traceability Verified**: Every prompt requirement is verified or explicitly disclosed.
+2. **Static Health Verified**: Project's compiler, typechecker, or linter passes cleanly with exit code `0`.
+3. **Test Suite Green**: Target and regression test suites pass with empirical execution evidence.
+4. **Diff Hygiene Confirmed**: Zero secrets, debug statements, extraneous scratch files, or unwanted whitespace churn.
+5. **Negative Control Verified**: Hostile or failure boundaries have been tested and verified to fail gracefully.
+6. **Verdict Certified**: Exactly one clear verdict (`CERTIFIED_READY` or `BLOCKED`) is documented.

@@ -4,12 +4,15 @@ description: >-
   Universal, timeless failure recovery, self-healing, and resilience engineering protocol.
   Use when debugging errors, handling test failures, resolving tool exceptions, recovering
   from crashes, backtracking invalidated assumptions, executing rollbacks, or managing
-  multi-agent escalations across any language, runtime, or framework. This skill is for
+  subagent failure ladders across any language, runtime, or framework. This skill is for
   agent-side development failures (test failures, tool crashes, wrong assumptions, coding errors),
   NOT for live production incidents affecting end users. Enforces the 7 Universal
   Recovery Invariants, 3-tier fault attribution (infrastructure vs cognitive vs domain),
   the 6-Fork Decision Lattice, transactional state reversibility, monotonic convergence,
   and anti-thrashing circuit breakers without limiting agent creativity or micro-managing LLM reasoning.
+  Do not activate for live production service outages or operational degradations (use incident-response),
+  routine behavior-preserving refactoring without active failures (use refactoring), or planned dependency
+  upgrades (use dependency-management).
 ---
 
 # Failure Recovery: Universal Resilience & Self-Healing Protocol
@@ -66,9 +69,9 @@ Size your recovery protocol to the scope, risk, and blast radius of the failure.
 
 | Mode | Trigger & Scope | Recovery Protocol | Required Documentation |
 | :--- | :--- | :--- | :--- |
-| **`micro-fix`** | Single-line typo, missing import, trivial syntax or lint error ($< 5$ lines). | In-place repair, local scoped re-verification. **Zero boilerplate**. | **3-Line Recovery Intent** block directly preceding code edit. |
+| **`micro-fix`** | Single-line typo, missing import, trivial syntax or localized lint error. | In-place repair, local scoped re-verification. **Zero boilerplate**. | **3-Line Recovery Intent** block directly preceding code edit. |
 | **`transactional-unit`** | Multi-file feature edit, refactor, API contract change with risk of broken state. | Pre-mutation checkpoint, isolated sandbox execution, auto-rollback on failure, atomic commit on green. | Checkpoint tag + structured commit message. |
-| **`subagent-recovery`** | Delegated worker stall, hallucination, contract breach, or subagent crash. | Soft/Hard restart ladder, context compaction, worktree re-spawn, `needs_attention` queue. | Worker diagnostic post-mortem in orchestrator transcript. |
+| **`subagent-recovery`** | Delegated worker stall, hallucination, contract breach, or subagent crash. | Apply Soft/Hard restart ladder and diagnostic root cause; orchestrator manages worker respawn and worktree reclamation. | Worker diagnostic post-mortem in orchestrator transcript. |
 | **`backtrack-pivot`** | Invalid architectural premise, wrong library chosen, fundamental spec mismatch. | Assumption DAG walk, derived artifact pruning, checkpoint rollback, re-plan from fork ($K \le 2$). | `RECOVERY_PIVOT.md` (Invalidated premise $\to$ new hypothesis $\to$ pruned artifacts). |
 | **`session-rescue`** | Agent context saturation ($> 80\%$ window), process crash, orphan worktrees. | Transcript compaction, stale log purging, orphan worktree triage, Restore vs Recompute execution. | Clean session resumption header. |
 | **`forensic-audit`** | Flaky/intermittent test (Heisenbug), persistent test failure, complex multi-file regression, memory leak, race condition. | Stop-the-line diagnostic capture, statistical repetition harness ($N \ge 5$), binary search bisect, permanent shield. | `POST_MORTEM.md` (Timeline, root cause, proof of resolution, regression shield). |
@@ -139,7 +142,7 @@ The 7 invariants adapt dynamically across every software archetype:
 * **Legacy & Zero-Test Codebases**: Pin baseline behavior by generating temporary black-box characterization tests before mutating code; use filesystem snapshots if Git is absent.
 * **Embedded, Systems & CLI Tools**: Attribute failures against hardware limits (RAM, stack depth, register bounds); isolate POSIX signal handling from core logic; verify process exit codes deterministically.
 * **Data, ML & Notebook Pipelines**: Checkpoint intermediate tensors/dataframes to disk before long training runs; decouple deterministic data transforms from non-deterministic model weights; isolate data corruption.
-* **Autonomous AI Agents & Swarms**: Apply the Soft/Hard restart ladder; isolate subagent mutations in separate worktrees; enforce anti-false-success gates; park blocked tasks in `needs_attention`.
+* **Autonomous AI Agents & Swarms**: Apply the Soft/Hard restart ladder and diagnostic root cause; coordinate with `multi-agent-orchestration` for worktree reclamation, contract renegotiation, or worker replacement; enforce anti-false-success gates; park blocked tasks in `needs_attention`.
 
 ---
 

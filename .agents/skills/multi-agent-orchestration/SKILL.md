@@ -7,6 +7,8 @@ description: >-
   "orchestrate sub-agents", or when a task has genuinely independent modules
   that bottleneck a single agent's context window. Also use when evaluating
   whether a complex task warrants multi-agent decomposition at all.
+  Do not activate for tightly coupled or sequential single-agent tasks (use planning
+  or code-quality), or for root-cause diagnosis within a single failing agent (use failure-recovery).
 ---
 
 # Multi-Agent Orchestration: Autonomous Coordination Protocol
@@ -84,7 +86,9 @@ Before dispatching any worker, formulate a structured contract defining:
 
 Workers must be physically prevented from corrupting each other's state:
 
-- **Git Worktrees** (preferred): Each worker operates in a separate worktree checked out to a dedicated branch from the foundation baseline. This eliminates shared git index corruption entirely.
+- **Git Worktrees** (preferred for Git repositories): Each worker operates in a separate worktree checked out to a dedicated branch from the foundation baseline. This eliminates shared git index corruption entirely.
+- **Isolated Workspace Directories / Sandboxes** (for non-Git or multi-repo setups): Each worker receives an isolated copy or containerized sandbox of the necessary files, returning diffs upon completion.
+- **Branch / Worktree Isolation**: Workers develop on isolated feature branches, avoiding shared staging areas.
 - **Path-Glob Boundaries** (lightweight alternative): Workers share a single tree but are assigned non-overlapping `allowed_paths`. Violations are detected at review time and trigger corrective restarts.
 
 *(Worktree lifecycle commands, branch conventions, and cross-platform caveats: [`references/isolation-and-worktrees.md`](references/isolation-and-worktrees.md).)*
@@ -129,11 +133,12 @@ Once workers are dispatched, the orchestrator monitors progress. The supervision
 
 | Escalation Level | Trigger | Action |
 | :--- | :--- | :--- |
-| **Level 1 — Soft Restart** | First progress timeout or validation failure. | Kill process, preserve uncommitted work (WIP commit), respawn with focused error context and test output. |
+| **Level 1 — Soft Restart** | First progress timeout or validation failure. | Kill process, preserve uncommitted work (WIP commit), respawn with focused error context and test output. (Invoke `failure-recovery` for localized hypothesis diagnosis). |
 | **Level 2 — Hard Restart** | Second failure or fundamental approach mismatch. | Kill process, tag current state for recovery (`recovery/<agent>/<timestamp>`), reset worktree to baseline, respawn with narrowed scope and corrective instructions. |
 | **Level 3 — Park** | Third failure or restart budget exhausted. | Mark agent as `needs_attention`. Preserve worktree for human inspection. **Do not continue retrying.** |
 
 **Restart cap**: Every agent has a maximum restart budget (default: 3). Past this limit, further respawns are blocked. This prevents runaway API credit consumption and context window pollution.
+> **Boundary Note**: `failure-recovery` governs the root-cause analysis, error classification, and localized fix hypothesis for an individual agent's failure. `multi-agent-orchestration` governs supervisor-level decisions: restarting, re-assigning, or parking the worker, and reclaiming the isolated workspace.
 
 *(Heartbeat protocols, timeout configuration, and triage runbooks: [`references/supervision-and-recovery.md`](references/supervision-and-recovery.md).)*
 
@@ -203,4 +208,13 @@ These mistakes consistently destroy the value of multi-agent orchestration:
 - **Unbounded Retries**: Restarting a failing worker indefinitely without a cap. Three failures with no progress means the decomposition or approach is wrong — not that the fourth attempt will succeed.
 - **Over-Orchestration**: Using 5 agents for 2 independent units. Coordination overhead exceeds execution benefit. Match agent count to true independence width.
 
-*(Concrete failure scenario walkthrough: [`examples/full-stack-feature-plan.md`](examples/full-stack-feature-plan.md).)*
+---
+
+## 9 · The Clean Orchestration Stopping Contract
+
+An orchestration engagement is strictly **COMPLETE** only when:
+1. **Durable Task Completion**: All assigned worker deliverables are integrated and accounted for.
+2. **Holistic Integration Passed**: Full repository test suite, static type analysis, and build pipeline execute with exit code `0` on the integrated branch.
+3. **Workspace Decontamination**: All temporary worker branches, worktrees, and ephemeral scratchpad files are cleaned up or parked cleanly.
+4. **Scope Integrity Verified**: Zero unauthorized file mutations occurred outside defined `allowed_paths`.
+5. **Synthesis Emitted**: A clear orchestration synthesis report is provided to the user detailing results, integration status, and key decisions.

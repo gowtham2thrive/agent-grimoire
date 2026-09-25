@@ -9,6 +9,9 @@ description: >-
   mathematical debt valuation ($I_{\text{debt}}$), graph-oriented reachability confidence ($C_{\text{dead}}$),
   and Arsenal boundary routing without limiting agent creativity or restricting to any specific technology.
   Routes structural restructuring to `refactoring` and package health to `dependency-management`.
+  Do not activate when executing structural code restructuring or refactoring (use refactoring),
+  upgrading packages and resolving lockfiles (use dependency-management), fixing acute bugs (use code-quality),
+  or mitigating live incidents (use incident-response).
 ---
 
 # Software Maintenance: Universal System Vitality & Technical-Debt Protocol
@@ -203,7 +206,7 @@ graph TD
   * **To [`dependency-management`](../dependency-management/SKILL.md)**: When package manifests and lockfiles require updates, diamond conflicts must be resolved, or changelogs audited.
   * **To [`security-engineering`](../security-engineering/SKILL.md)**: When a debt finding involves active CVE reachability, plaintext secret exposure, or authentication vulnerabilities.
   * **To [`solution-discovery`](../solution-discovery/SKILL.md)**: When an aging internal utility or abandoned library should be replaced with a modern standard library feature or best-of-breed component.
-  * **To [`planning`](../planning/SKILL.md)**: When remediation requires a multi-step vertical slicing plan spanning more than $K_{\text{mode}}$ files.
+  * **To [`planning`](../planning/SKILL.md)**: When remediation requires a multi-step vertical slicing plan spanning cross-cutting architectural boundaries or complex dependency changes.
 
 ---
 
@@ -212,8 +215,8 @@ graph TD
 - ❌ **No Blind Speculative Deletion**: Never delete code based on local absence of calls without proving unreachability from all root entry points ($\mathcal{R}$) and verifying dynamic reflection absence ($P_{\text{dynamic}} = 0$).
 - ❌ **No Silent API Alterations**: Never delete or alter a public library export without following formal SemVer deprecation lifecycle procedures.
 - ❌ **No Mixed Maintenance-Feature Commits**: Never bundle dead-code excision, dependency updates, or debt cleanup into a pull request implementing business features.
-- ❌ **No "Debugging Forward" on Broken Excision**: If deleting code causes test failures or compiler errors, immediately revert (`git checkout -- path`). Do not attempt to fix unrelated code to justify a deletion.
-- ❌ **No Unrecorded Debt Findings**: Never complete a technical-debt audit without recording all unaddressed findings in a structured, machine-readable debt register (`TECH_DEBT.md`).
+- ❌ **No "Debugging Forward" on Broken Excision**: If deleting code causes test failures or compiler errors, immediately revert to the last known-green state. Do not attempt to fix unrelated code to justify a deletion.
+- ❌ **No Unrecorded Debt Findings**: Never complete a technical-debt audit without recording all unaddressed findings in a structured debt register (`TECH_DEBT.md` or the project's standard tracking document/backlog).
 - ❌ **No Weakening of Safety Invariants**: Never prune an agent rule, security constraint, or verification gate under the guise of "prompt optimization" without an explicit micro-ADR.
 - ❌ **No Deletion of Compliance or Migration Tombstones**: Never delete database downgrade migrations, legal audit trails, or regulatory retention mechanisms.
 
@@ -227,5 +230,5 @@ A maintenance task is strictly **COMPLETE** only when all of the following condi
 2. **Zero Orphaned References**: All imports, type stubs, documentation cross-references, and build manifests corresponding to deleted symbols have been pruned cleanly.
 3. **Behavioral Invariance & Green Test Suite**: Full regression test suite passes cleanly with exit code `0`. Observable external functionality and public contracts are completely invariant.
 4. **Zero Diagnostic Regressions**: Compilers, linters, and typecheckers emit zero new warnings or errors.
-5. **Debt Visibility Certification**: Any identified deterioration not remediated in the current pass is fully documented in `TECH_DEBT.md` with an assigned $I_{\text{debt}}$ rating and reproduction context.
+5. **Debt Visibility Certification**: Any identified deterioration not remediated in the current pass is fully documented in the debt register (`TECH_DEBT.md` or project backlog) with an assigned $I_{\text{debt}}$ rating and reproduction context.
 6. **Diff Cleanliness**: The git diff contains strictly maintenance-related modifications—zero bundled feature changes or cosmetic whitespace churn.

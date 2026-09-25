@@ -3,10 +3,11 @@ name: code-review
 description: >-
   Independent, adversarial inspection of code changes (diffs, commits, branches, PRs).
   Use when reviewing code, conducting pre-merge audits, analyzing pull requests,
-  evaluating security posture, or vetting pull request changes. Enforces a two-stage
-  review gate (spec compliance first, then code quality), specialized multi-lens auditing
-  (correctness, security, performance, regression), 0–100 confidence scoring, and ruthless
-  filtering of cosmetic noise.
+  evaluating security posture, or vetting pull request changes. Do NOT activate for
+  active code authoring (use code-quality) or final task completion certification
+  (use agent-evaluation). Enforces a two-stage review gate (spec compliance first,
+  then code quality), specialized multi-lens auditing, 0–100 confidence scoring,
+  and ruthless filtering of cosmetic noise.
 ---
 
 # Code Review: Adversarial Multi-Lens Audit Protocol
@@ -21,7 +22,7 @@ Never review a pull request or code change as an unstructured stream of impressi
 
 ```mermaid
 flowchart TD
-    DIFF["Input: Git Diff / PR / Working Branch"] --> S1["Stage 1: Spec Compliance Gate<br/>(Did the changes satisfy user requirements & acceptance criteria?)"]
+    DIFF["Input: Git Diff / PR / Working Branch"] --> S1["Stage 1: Intent & Spec Compliance Gate<br/>(Did the changes satisfy user requirements & acceptance criteria?)"]
     S1 -->|Spec Deficit / Missing Criteria| HALT["Halt & Report Spec Gaps<br/>(Do not waste tokens reviewing code style)"]
     S1 -->|Passed Spec| S2["Stage 2: Multi-Lens Deep Audit"]
 
@@ -34,33 +35,34 @@ flowchart TD
 
     S2 --> Lenses
     Lenses --> SYNTH["Synthesis & Challenge Gate<br/>• Deduplicate by root cause<br/>• Challenge false positives (Red-team pass)<br/>• Score confidence (0-100)<br/>• Discard cosmetic noise (< 70)"]
-    SYNTH --> OUT["Output: REVIEW_FINDINGS.md<br/>(Anchored citations, failure scenarios, patch suggestions)"]
+    SYNTH --> OUT["Output: Review Findings<br/>(Anchored citations, failure scenarios, patch suggestions)"]
 ```
 
 ### Stage 1: Specification Compliance Gate
 Before evaluating code quality, verify that the code **actually satisfies the requested objective**:
 - Are all explicit user requirements and acceptance criteria met?
-- Were any edge cases mentioned in the prompt ignored or dropped?
-- If the implementation is functionally incomplete, **halt immediately**. Document the missing requirements and request completion before reviewing code quality.
+- Were any edge cases mentioned in the prompt or issue ignored or dropped?
+- **Handling Undocumented PRs**: If the change lacks a formal specification or ticket, reconstruct the intended contract from commit messages, issue discussions, and surrounding test diffs. If the intent remains fundamentally ambiguous, report the ambiguity first.
+- If the implementation is demonstrably incomplete, **halt immediately**. Document the missing requirements and request completion before reviewing code quality.
 
 ### Stage 2: Multi-Lens Deep Audit
 Once specification compliance passes, inspect the change surface through four orthogonal lenses:
 1. **Contract & Correctness Lens**: Boundary violations, condition inversions, unhandled null/undefined states, state corruption (see [`references/review-lenses.md#lens-1`](references/review-lenses.md)).
-2. **Security & Vulnerability Lens**: Injection vectors, tainted data flow, auth/authz bypass, secret leaks, SSRF (see [`references/review-lenses.md#lens-2`](references/review-lenses.md)).
-3. **Performance & Resource Safety Lens**: Unbounded queries ($N+1$), memory leaks, unclosed handles/locks, connection exhaustion (see [`references/review-lenses.md#lens-3`](references/review-lenses.md)).
+2. **Security & Vulnerability Lens**: Injection vectors, tainted data flow, auth/authz bypass, secret leaks, SSRF. When complex threat modeling or supply chain vulnerabilities arise, consult `security-engineering` (see [`references/review-lenses.md#lens-2`](references/review-lenses.md)).
+3. **Performance & Resource Safety Lens**: Unbounded queries, memory leaks, unclosed handles/locks, connection exhaustion. For profiling or load capacity verification, consult `performance-engineering` (see [`references/review-lenses.md#lens-3`](references/review-lenses.md)).
 4. **Regression & Test Completeness Lens**: Breaking API changes, missing regression tests, untested error branches (see [`references/review-lenses.md#lens-4`](references/review-lenses.md)).
 
 ---
 
 ## 2 · Adaptive Cognitive Sizing
 
-Scale the review execution based on diff size, risk, and available runtime:
+Scale the review execution based on blast radius, architectural complexity, and change risk:
 
 | Mode | Trigger & Scope | Execution Strategy | Target Output |
 | :--- | :--- | :--- | :--- |
-| **`lightweight`** | Small PR / bug fix (< 50 lines changed). | Single-pass sequential audit across the 4 lenses. Focus on correctness and tests. | Concise review report in chat. |
-| **`standard`** | Feature branch, multi-file change (50–300 lines). | 2-stage review; inspect callers and schemas; generate patch snippets. | Full `REVIEW_FINDINGS.md`. |
-| **`multi_agent`** | Major architectural change, security-sensitive module, or large PR (> 300 lines). | Decompose review across specialized subagents using `multi-agent-orchestration`; run synthesis pass. | Comprehensive `REVIEW_FINDINGS.md` with reconciled deduplication. |
+| **`lightweight`** | Localized patch, bug fix, or low-risk change to non-critical code. | Single-pass sequential audit across the 4 lenses. Focus on correctness and tests. | Concise review report in conversation. |
+| **`standard`** | Multi-file feature branch, new subsystem, or contract modifications. | Full 2-stage review; inspect callers and schemas; generate patch snippets. | Structured findings report (in file or PR comment per project convention). |
+| **`composite`** | High-blast-radius architectural overhaul, security-critical modules, or large cross-cutting changes. | Decompose review across specialized passes (correctness, security, performance) or parallel review agents; synthesize findings. | Comprehensive review report with reconciled deduplication and risk summary. |
 
 ---
 
@@ -81,7 +83,7 @@ $$\text{Confidence} = \text{Grounding (Line Citation)} + \text{Reproducibility (
 > [!WARNING]
 > **Strict Suppression Rule**:
 > 1. Any finding with a confidence score **below 70** is **automatically discarded**.
-> 2. Any comment on code formatting, whitespace, indentation, or subjective naming preference is **strictly forbidden**. Formatting belongs to automated linters.
+> 2. Any comment on code formatting, whitespace, indentation, or subjective naming preference is **strictly forbidden**. Formatting belongs to automated tools.
 
 *(Detailed scoring rubrics and suppression guidelines: [`references/severity-and-scoring.md`](references/severity-and-scoring.md).)*
 
@@ -91,8 +93,8 @@ $$\text{Confidence} = \text{Grounding (Line Citation)} + \text{Reproducibility (
 
 Before reporting any finding, execute an internal **Red-Team Challenge**:
 * *Does an upstream middleware or validation schema already prevent this invalid state?*
-* *Does the language type system (e.g. TypeScript non-nullable types, Rust ownership) make this impossible at runtime?*
-* *Is this existing legacy behavior that was simply untouched by this diff?*
+* *Does the language type system or compiler make this impossible at runtime?*
+* *Is this pre-existing legacy behavior that was simply untouched by this diff?*
 
 If the answer to any of these is "yes", **drop the finding**. Only report issues that genuinely survive adversarial challenge (see [`references/synthesis-and-challenge.md`](references/synthesis-and-challenge.md)).
 
@@ -100,8 +102,8 @@ If the answer to any of these is "yes", **drop the finding**. Only report issues
 
 ## 5 · Deliverable Format
 
-All findings must be formatted using the standardized schema in [`examples/review-report-template.md`](examples/review-report-template.md):
-- **Location**: Absolute path and line range (`[CODE: src/auth.ts#L42-L48]`).
-- **Severity & Confidence**: e.g. `P0 - Blocker (Confidence: 95/100)`.
-- **Failure Scenario**: Concrete explanation of what triggers the failure and its impact.
+All findings must be formatted with actionable, verifiable citations:
+- **Location**: File path and line range (`[CODE: path/to/file#L42-L48]`).
+- **Severity & Confidence**: e.g., `P1 - Critical (Confidence: 85/100)`.
+- **Failure Scenario**: Concrete explanation of what triggers the failure and its observable impact.
 - **Recommended Remediation**: Minimal, drop-in replacement code snippet.

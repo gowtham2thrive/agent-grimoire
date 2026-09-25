@@ -8,6 +8,9 @@ description: >-
   Event Streams, Vector, Graph, Embedded, or AI Agent State). Enforces the 8 Universal Data Invariants, the 7-phase
   closed-loop lifecycle, 6 cognitive sizing modes, mechanical storage sympathy, and Arsenal boundary routing
   without limiting agent creativity or restricting to any specific vendor or technology.
+  Do not activate for transient in-memory UI component state (use code-quality), routine application CRUD queries
+  (use code-quality), external API transport formatting (use api-design), or physical database VM/cluster provisioning
+  (use infrastructure).
 ---
 
 # Data Management: Universal Lifecycle, Schema Evolution & Trustworthiness Protocol
@@ -69,7 +72,7 @@ Size your data management effort strictly to the task's blast radius and lifecyc
 
 | Mode | Trigger & Scope | Engineering Discipline | Required Output & Protocol |
 | :--- | :--- | :--- | :--- |
-| **`micro-data`** | Single column/index tweak, query filter, nullability fix ($< 30$ lines). | Quick compatibility check $\to$ verify grain and non-blocking DDL $\to$ zero overhead. | **3-Line Data Intent Block** directly preceding code change. |
+| **`micro-data`** | Single column/index tweak, query filter, localized nullability fix. | Quick compatibility check $\to$ verify grain and non-blocking DDL $\to$ zero overhead. | **3-Line Data Intent Block** directly preceding code change. |
 | **`prototype-scratch`** | Greenfield pre-production spike, disposable app, single-consumer ($N_{\text{consumers}} \le 1$). | Rapid iteration: in-place mutations, drop/recreate allowed. Skip Expand-Contract. | Minimal Schema Specification or DDL script. |
 | **`entity-model`** | New aggregate, table, collection, or entity boundary. | Define Grain ($\mathcal{G}$) $\to$ 3NF logical model $\to$ physical storage layout $\to$ constraint validation. | **Entity Model Specification** (`DATA_SPEC.md` or specimen). |
 | **`schema-migration`** | Zero-downtime schema evolution, column rename/split, type modification ($N_{\text{consumers}} > 1$). | Full Expand-Contract protocol: lock-free DDL $\to$ chunked keyset backfill $\to$ dual-read cutover $\to$ contract. | **Expand-Contract Migration Runbook**. |
@@ -142,7 +145,7 @@ No static rulebook can anticipate every production anomaly. When exceptional ope
 > An agent may deliberately bypass a data invariant (e.g., executing a rapid in-place schema fix during a catastrophic outage, relaxing a foreign key constraint on an emergency ingestion pipeline, or deferring an Expand-Contract phase) **IF AND ONLY IF**:
 > 1. **Operational Constraint Citation**: Explicitly cites the physical or operational emergency (e.g., *"Active production P0 outage requires immediate non-Expand-Contract column addition to unblock order processing"* or *"High-velocity telemetry stream ($10^6$ events/sec) cannot incur synchronous foreign-key validation overhead without dropping packets"*).
 > 2. **Quarantined Boundary Containment**: Confines the exception inside an isolated boundary (e.g. applying a `NOT VALID` constraint with an asynchronous remediation ticket, or isolating unvalidated payloads into an ingestion buffer).
-> 3. **Micro-ADR & Debt Registration**: Records the trade-off, rationale, and remediation ticket in `TECH_DEBT.md` (`[DATA-EXCEPTION: Unchecked foreign key in ingestion buffer pending batch reconciler in ticket DATA-804]`).
+> 3. **Micro-ADR & Debt Registration**: Records the trade-off, rationale, and remediation ticket in the debt register (`TECH_DEBT.md` or project backlog) (`[DATA-EXCEPTION: Unchecked foreign key in ingestion buffer pending batch reconciler in ticket DATA-804]`).
 
 ---
 

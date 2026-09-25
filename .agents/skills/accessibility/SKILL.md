@@ -1,12 +1,13 @@
 ---
 name: accessibility
 description: >-
-  Universal, timeless accessibility engineering, assistive technology verification, and inclusive interaction protocol.
+  Universal accessibility engineering, assistive technology verification, and inclusive interaction protocol.
   Use when designing, implementing, auditing, or refactoring user interfaces across any medium (Web, iOS, Android,
-  Desktop, Terminal CLI/TUI, 2D/3D Canvas, Spatial/XR, or AI Agent Generative UI). Enforces task primacy, the 8 Universal
+  Desktop, Terminal CLI/TUI, 2D/3D Canvas, Spatial/XR, or AI Agent Generative UI). Do NOT activate for headless
+  backend services, algorithms, or compilers without a user sensory interface (use code-quality or api-design),
+  or for visual aesthetic styling (use design-philosophy). Enforces task primacy, the 8 Universal
   Accessibility Invariants (A1-A8), the 4-tier Epistemic Evidence Ladder, the LIFO Focus Stack Machine, dual-contrast
-  perceptual physics, and 0-4 mathematical finding schemas without limiting architectural creativity or restricting
-  to any specific technology or framework.
+  perceptual physics, and mathematical finding schemas.
 ---
 
 # Accessibility Engineering: Universal Assistive Technology & Inclusive Interaction Protocol
@@ -50,7 +51,7 @@ flowchart LR
    * Evaluate the experience on the **Rendered Surface** and within the computed platform accessibility tree, not merely against static source code (see [`references/perceptual-physics-contrast-and-reflow.md`](references/perceptual-physics-contrast-and-reflow.md)).
    * Verify using the **4-Tier Epistemic Evidence Ladder** ($\mathcal{E}_1 \to \mathcal{E}_4$), combining automated rule sweeps with keyboard walkthroughs, zoom/reflow stress tests, and assistive event trace inspections.
 6. **Phase 6 — Living Conformance & Exception Governance**:
-   * Pin verified behavior into the project's living [`ACCESSIBILITY.md`](templates/ACCESSIBILITY.md) contract.
+   * Pin verified behavior into the project's living accessibility contract (e.g. [`ACCESSIBILITY.md`](templates/ACCESSIBILITY.md) or test assertions).
    * If physical constraints or vendor code prevent compliance, execute the formal **Accessibility Exception Protocol** (see [`references/auditing-conformance-and-exception-protocol.md`](references/auditing-conformance-and-exception-protocol.md)).
    * Hand off automated assertion contracts to [`testing`](../testing/SKILL.md) and [`ci-cd`](../ci-cd/SKILL.md).
 
@@ -58,15 +59,15 @@ flowchart LR
 
 ## 2 · Progressive Disclosure (Reference Routing)
 
-To prevent cognitive overload and preserve context bandwidth, **never load all reference manuals simultaneously**. Consult reference manuals strictly on demand based on task context:
+To prevent cognitive overload and preserve context bandwidth, consult reference manuals strictly on demand based on task context:
 
 | Context Trigger | Mandatory Reference Manual | Purpose |
 | :--- | :--- | :--- |
 | **OS a11y trees, quadruplet model, accname computation, roles** | [`references/universal-invariants-and-assistive-tree.md`](references/universal-invariants-and-assistive-tree.md) | Deep mechanics of platform accessibility APIs (UIA, NSAccessibility, AT-SPI, Chromium tree) and accessible name calculation. |
 | **Focus rings, tab order, modals, roving tabindex, shortcuts** | [`references/keyboard-focus-and-interaction-mechanics.md`](references/keyboard-focus-and-interaction-mechanics.md) | Formal focus stack machine, trap elimination, discrete keyboard navigation algorithms, WAI-ARIA patterns. |
 | **Forms, errors, live regions, LLM streaming, toast alerts** | [`references/dynamic-states-streaming-and-error-recovery.md`](references/dynamic-states-streaming-and-error-recovery.md) | Form state machines, polite vs assertive annunciation, 3-part accessible errors, token streaming throttling. |
-| **Contrast ratios, APCA, 400% zoom reflow, forced-colors** | [`references/perceptual-physics-contrast-and-reflow.md`](references/perceptual-physics-contrast-and-reflow.md) | Dual contrast model (WCAG 2.2 vs APCA $L^c$), Windows High Contrast, font zoom math, responsive reflow. |
-| **Plain language, timeouts, ADHD/dyslexia, motion sickness** | [`references/cognitive-accessibility-and-sensory-overload.md`](references/cognitive-accessibility-and-sensory-overload.md) | Cognitive load limits, $10\times$ time extension rule, `prefers-reduced-motion` mechanics, sensory overload prevention. |
+| **Contrast ratios, APCA, 400% zoom reflow, forced-colors** | [`references/perceptual-physics-contrast-and-reflow.md`](references/perceptual-physics-contrast-and-reflow.md) | Contrast models (WCAG 2.2 AA vs APCA), Windows High Contrast, font zoom math, responsive reflow. |
+| **Plain language, timeouts, ADHD/dyslexia, motion sickness** | [`references/cognitive-accessibility-and-sensory-overload.md`](references/cognitive-accessibility-and-sensory-overload.md) | Cognitive load limits, time extension rules, `prefers-reduced-motion` mechanics, sensory overload prevention. |
 | **Canvas, WebGL, 3D graphics, game engines, Flutter painters** | [`references/virtual-semantic-mirrors-canvas-and-games.md`](references/virtual-semantic-mirrors-canvas-and-games.md) | Retained virtual accessibility trees, spatial hit-testing synchronization, and the Tabular Alternative Invariant. |
 | **Cross-platform translation (Web, iOS, Android, Desktop, TUI, AI)** | [`references/multi-archetype-rosetta-stone.md`](references/multi-archetype-rosetta-stone.md) | Rosetta Stone mapping abstract accessibility moves into idiomatic code across 6 major computing archetypes. |
 | **Audits, 0–4 severity grading, WCAG/EN 301 549, exceptions** | [`references/auditing-conformance-and-exception-protocol.md`](references/auditing-conformance-and-exception-protocol.md) | Multi-pass audit execution, mathematical finding schema, epistemic evidence ladder, Formal Exception RFC. |
@@ -79,14 +80,14 @@ Size your accessibility engineering effort to the scope and operational risk of 
 
 | Mode | Trigger & Scope | Engineering Discipline | Required Output & Protocol |
 | :--- | :--- | :--- | :--- |
-| **`micro`** | Button label, isolated form field, icon contrast, tooltip ($< 30$ lines). | Immediate execution; verify accessible name, contrast, and focus outline. | **Zero preamble essay**. Emit the code/diff directly with a 1-line accessibility rationale. |
+| **`micro`** | Button label, isolated form field, icon contrast, tooltip. | Immediate execution; verify accessible name, contrast, and focus outline. | **Zero preamble essay**. Emit the code/diff directly with a 1-line accessibility rationale. |
 | **`component`** | Combobox, modal dialog, tabs, accordion, dropdown menu, alert banner. | Focus trap/release, roving tabindex, keyboard keys (`Esc`, arrows), live region state. | **3-Line Accessibility Intent Block** immediately preceding implementation. |
 | **`flow`** | Multi-step form, wizard, checkout, interactive data table, search filter. | Step-to-step focus traversal, validation error summary announcement, progress annunciation. | **Task Flow Focus & State Matrix** + complete implementation. |
-| **`system`** | Full application shell, navigation drawer, design system token architecture. | Global landmark hierarchy, skip links, dynamic theme contrast switching, font zoom resilience. | Structured **Accessibility Architecture Contract** (`ACCESSIBILITY.md`) + code. |
+| **`system`** | Full application shell, navigation drawer, design system token architecture. | Global landmark hierarchy, skip links, dynamic theme contrast switching, font zoom resilience. | Structured **Accessibility Architecture Contract** + code. |
 | **`audit`** | WCAG 2.2 AA / Section 508 review, PR accessibility audit, pre-release verification. | Multi-pass adversarial evaluation (Keyboard $\to$ Screen Reader $\to$ Contrast $\to$ Zoom $\to$ Recovery). | **Mathematical Finding Matrix** with anchored citations, 0–4 severity, and code remediation. |
 
 ### The 3-Line Accessibility Intent Protocol (For `component` and `flow` Modes)
-To prevent philosophical essay bloat, summarize accessibility intent in exactly 3 structured lines before emitting implementation code:
+When operating in `component` or `flow` mode, summarize accessibility intent in exactly 3 structured lines before emitting implementation code:
 ```markdown
 > **A11y Target**: [Component Name] · [Native Primitive or Custom Role] · [Accessible Name Strategy]
 > **Keyboard & Focus**: [Tab sequence / Roving tabindex] · [Focus indicator style] · [Focus restore anchor]
@@ -102,12 +103,10 @@ To prevent philosophical essay bloat, summarize accessibility intent in exactly 
 Regardless of technology (Web, iOS, Android, Flutter, Desktop, TUI, Canvas, or AI Agents), every interface must adhere to the 8 Universal Accessibility Invariants:
 
 ### 4.1 Invariant 1: Task Primacy & Equivalence of Outcome ($\mathcal{A}_1$)
-$$\forall u_i, u_j \in \mathcal{U}, \quad \text{Outcome}(u_i, \text{Task}) \equiv \text{Outcome}(u_j, \text{Task})$$
 * **Equivalence of Outcome**: Every human operator, regardless of assistive technology or perceptual modality, must be able to achieve the identical functional outcome. Differences in sensory presentation are permitted; inequality of outcome is strictly prohibited.
 * **No Degraded "Accessible Modes"**: Never build a separate, stripped-down "text-only" site that lags behind the primary experience. Accessibility is engineered directly into the primary surface.
 
 ### 4.2 Invariant 2: Native Semantic Grounding ($\mathcal{A}_2$)
-$$\text{Element} = \begin{cases} \text{NativePlatformPrimitive} & \text{if capability exists} \\ \text{CustomElement} \oplus \text{Quadruplet}(\text{Role}, \text{Name}, \text{State}, \text{Action}) & \text{only by exception} \end{cases}$$
 * **Platform Native Primacy**: Always use the platform's native interactive controls (`<button>`, `<dialog>`, `Button`, `Dialog`). Native controls provide keyboard handling, focus management, high-contrast adaptation, and accessibility tree bindings by default.
 * **The Semantic Quadruplet**: If a custom element is unavoidable, it must programmatically expose:
   1. *Role*: What the element is (e.g., button, tab, treeitem).
@@ -116,19 +115,16 @@ $$\text{Element} = \begin{cases} \text{NativePlatformPrimitive} & \text{if capab
   4. *Actions / Events*: Supported invocations (click, activate, dismiss, toggle).
 
 ### 4.3 Invariant 3: Modality Independence & Unconstrained Operability ($\mathcal{A}_3$)
-$$\forall \text{Action} \in \text{Task}, \quad \exists \text{Sequence} \in \text{DiscreteInputs} \implies \text{Execute}(\text{Action})$$
 * **Discrete Input Parity**: No task or interaction may require a specific physical input mechanism (e.g., mouse hovering, multi-finger gestures, fine motor dragging, or voice-only input). Every action must be executable via discrete, stepped inputs (keyboard, switch device, directional pad).
 * **Pointer Cancellation**: For pointer interactions, the activation must occur on the up-event, with a mechanism to abort or cancel before completion.
 
 ### 4.4 Invariant 4: Deterministic Focus Management & The LIFO Stack ($\mathcal{A}_4$)
-$$\text{FocusStack}_{t+1} = \begin{cases} \text{Push}(\text{FocusStack}_t, \text{Target}) & \text{on modal open} \\ \text{Pop}(\text{FocusStack}_t) \implies \text{Focus}(\text{Top}) & \text{on modal dismiss} \end{cases}$$
 * **Predictable Focus Progression**: Programmatic focus progression must match the logical reading and operational sequence of the interface.
 * **Unbreakable Focus Containment**: Modal dialogs, sheets, and drawers must trap keyboard focus within their bounds while open and dismiss cleanly on `Escape`.
 * **Zero Focus Obliteration**: Closing a transient dialog or completing a mutation must deterministically restore focus to the triggering element. Focus must never reset to `<body>` or the top of the window on state change.
-* **Luminance Contrast on Focus**: The focused element must present a high-contrast visual focus indicator ($\Delta L^* \ge 3:1$ against adjacent surfaces) that is never obscured by sticky headers, footers, or overlays. Removing focus indicators (`outline: none`) without replacement is strictly forbidden.
+* **Visible Focus Affirmation**: The focused element must present a high-contrast visual focus indicator ($\ge 3:1$ luminance contrast against adjacent surfaces) that is never obscured. Removing focus indicators without replacement is strictly forbidden.
 
 ### 4.5 Invariant 5: Dynamic State Synchronization & Streaming Pacing ($\mathcal{A}_5$)
-$$\text{LiveAnnounce}(\text{Event}) \implies \Delta t_{\text{throttle}} \ge 1.0\text{s} \quad \land \quad \text{Politeness} \in \{\text{Polite}, \text{Assertive}\}$$
 * **Non-Disruptive Annunciation**: When state changes asynchronously (validation, loading, background completion), update the assistive event stream without stealing user focus.
 * **The AI Streaming & Liveness Rule**: During generative AI token streaming, **never dispatch per-token live announcements** (which crashes screen reader synthesizers with audio buffer storms). Dispatch lifecycle announcements:
   1. *Stream Started* (polite announcement).
@@ -137,32 +133,20 @@ $$\text{LiveAnnounce}(\text{Event}) \implies \Delta t_{\text{throttle}} \ge 1.0\
   Keep user focus anchored on the prompt input or interactive controls throughout generation.
 
 ### 4.6 Invariant 6: Orthogonal Sensory Redundancy & Dual Contrast ($\mathcal{A}_6$)
-$$\text{InformationChannel} \ge 2 \quad (\text{e.g., Color} \land \text{Icon} \land \text{Text})$$
 * **Multimodal Encoding**: Essential meaning, status, or hierarchy must never be communicated through a single sensory channel. Color must be reinforced with icons or text; audio cues must be paired with visual captions.
-* Contrast thresholds and interactive target sizing defined in `design-philosophy`'s [`references/shared-ui-constants.md`](../design-philosophy/references/shared-ui-constants.md).
+* **Perceptual Contrast**: Text and interactive affordances must satisfy minimum contrast requirements ($\ge 4.5:1$ for normal text, $\ge 3:1$ for large text and interactive components) across all supported themes and high-contrast modes.
 
-### 4.7 Invariant 7: Non-Destructive Error Forgiveness & Reversible Recovery ($\mathcal{A}_7$)
-$$\text{ErrorUI} = \text{Cause} \oplus \text{Impact} \oplus \text{ActionableRemedy} \quad \land \quad \text{DestructiveAction} \implies \text{ReversibleUndo}$$
-* **The 3-Part Accessible Error**: Every error must programmatically link: (1) what happened in human terms, (2) the impact on the user's data, and (3) a direct, actionable recovery pathway.
-* **Forgiving Input Parsers (Postel's Law)**: Be liberal in what you accept (forgiving phone/date inputs) and conservative in what you output.
-* **Reversible Safety**: High-impact or destructive actions must support reversible undo or snapshotting, preventing motor slips from causing catastrophic data loss.
+### 4.7 Invariant 7: Accessible Error Exposition & Safe Recovery ($\mathcal{A}_7$)
+* **Exposition to Assistive Tech**: Validation errors and alert messages must be programmatically linked to their invalid input fields (e.g., via `aria-describedby` or platform error attributes) and announced to screen readers.
+* **Non-Blocking Recovery**: Users must be able to navigate to and correct errors without keyboard traps or focus resets.
 
 ### 4.8 Invariant 8: Rendered Surface Truth & Scoped Evidence ($\mathcal{A}_8$)
-$$\text{Claim}(\text{Accessible}) \iff \text{EvidenceTier} \ge \mathcal{E}_3 \quad (\text{Rendered Surface} \lor \text{Assistive Tree})$$
 * **Composited Reality**: Accessibility quality exists on the final rendered, composited surface and in the computed platform accessibility tree. Static AST review is an incomplete proxy.
-* **Honest Scoping**: Findings must state the exact environment, viewport, and epistemic evidence tier ($\mathcal{E}_1 \to \mathcal{E}_4$). Never turn a passing automated linter run into a conformance claim.
+* **Honest Scoping**: Findings must state the exact environment, viewport, and epistemic evidence tier ($\mathcal{E}_1 \to \mathcal{E}_4$). Never turn a passing automated linter run into an absolute conformance claim.
 
 ---
 
-## 5 · The Multi-Archetype Rosetta Stone
-
-Translate universal accessibility moves directly into idiomatic primitives for your target technology:
-
-*(See [`references/archetype-adaptation.md`](references/archetype-adaptation.md) for platform-specific adaptation guidance.)*
-
----
-
-## 6 · Usability Auditing & The Mathematical Finding Protocol
+## 5 · Usability Auditing & The Mathematical Finding Protocol
 
 When operating in **`audit`** mode, you are strictly forbidden from reporting vague, subjective, or unanchored complaints. Every audit finding must satisfy this mathematical schema:
 
@@ -175,47 +159,43 @@ $$\text{Finding} = [\text{Component/Line Anchor}] + [\text{User Task & Barrier}]
 * **Severity 3 (Major Barrier)**: Prevents a specific category of users (keyboard-only or screen-reader) from completing the task without human assistance.
 * **Severity 4 (Catastrophic Blocker)**: System lockout, keyboard trap, unrecoverable data loss, or physical safety violation (e.g., seizure-inducing flashing). Must fix immediately.
 
-### Sample Finding Template
-```markdown
-### [FINDING-A11Y-XX] <Title>
-- **Anchor**: `<file:line>`
-- **User Task & Barrier**: <Who is blocked and how>
-- **Violated Invariant**: <$\mathcal{A}_N$> · <WCAG SC>
-- **Severity**: <0–4>
-- **Evidence Tier**: <$\mathcal{E}_N$>
-- **Observation**: <What is broken>
-- **Remediation**: <Concrete fix with code>
-```
-
 ---
 
-## 7 · Anti-Pattern Kill-List (Hostile Accessibility Practices)
+## 6 · Anti-Pattern Kill-List (Hostile Accessibility Practices)
 
-The following practices are strictly disallowed in any system adhering to this protocol:
-
-* ❌ **Div/Span Click Handlers**: Attaching click events to non-interactive elements (`<div onClick={...}>`) without native semantics, `tabindex="0"`, and keyboard handlers (`Enter`/`Space`).
-* ❌ **Focus Outlines Removed**: Applying `outline: none` or `outline: 0` without replacing it with an equal or higher-contrast focus indicator.
+* ❌ **Div/Span Click Handlers**: Attaching click events to non-interactive elements without native semantics, tab index, and keyboard handlers.
+* ❌ **Focus Outlines Removed**: Applying `outline: none` without replacing it with an equal or higher-contrast focus indicator.
 * ❌ **Unescapable Keyboard Traps**: Allowing focus to enter an interactive element or container with no keyboard mechanism to exit.
-* ❌ **Superficial ARIA Dressing**: Slapping `aria-*` attributes onto broken, invalid semantic structures instead of fixing the underlying element hierarchy.
+* ❌ **Superficial ARIA Dressing**: Slapping `aria-*` attributes onto broken semantic structures instead of fixing the underlying element hierarchy.
 * ❌ **Silent Dynamic Mutators**: Updating screen contents, error banners, or status messages asynchronously without notifying assistive technologies.
 * ❌ **Focus Obliteration**: Destroying or resetting user focus to the document root when re-rendering data or dismissing an overlay.
 * ❌ **Color-Only State Indication**: Conveying errors, success, or diff changes exclusively through color hue without icons or descriptive text.
-* ❌ **Viewport Zoom Disabling**: Setting `user-scalable=no` or `maximum-scale=1.0` in viewports, breaking low-vision zoom.
+* ❌ **Viewport Zoom Disabling**: Disabling user zoom scaling in viewport configurations, breaking low-vision zoom.
 * ❌ **Per-Token Live Annunciation Spam**: Triggering live region announcements on every single streaming LLM token, overwhelming screen-reader audio buffers.
-* ❌ **False Conformance Claims on AST Scans**: Declaring an interface "accessible" based solely on passing static linter checks ($\mathcal{E}_1$).
+* ❌ **False Conformance Claims on AST Scans**: Declaring an interface "accessible" based solely on passing static linter checks.
 
 ---
 
-## 8 · Arsenal Skill Boundary & Ecosystem Routing
+## 7 · Arsenal Skill Boundary & Ecosystem Routing
 
-Keep accessibility as a distinct quality discipline while allowing adjacent skills to own their specialties:
+Keep accessibility as a distinct quality discipline while coordinating with adjacent skills:
 
 | Adjacent Skill | Upstream / Downstream Boundary |
 | :--- | :--- |
-| [`design-philosophy`](../design-philosophy/SKILL.md) | **Upstream**: Owns typography scales, visual hierarchy, 60-30-10 chromatic palette, and perceptual Gestalt grouping. `accessibility` audits those choices for contrast ratios, focus indicator visibility, and 400% zoom reflow. |
+| [`design-philosophy`](../design-philosophy/SKILL.md) | **Upstream**: Owns typography scales, visual hierarchy, 60-30-10 chromatic palette, and perceptual Gestalt grouping. `accessibility` audits those choices for contrast ratios, focus indicator visibility, and zoom reflow. |
 | [`ux-engineering`](../ux-engineering/SKILL.md) | **Upstream**: Owns task flows, information architecture, 3-part error copy, and undo mechanics. `accessibility` guarantees those task flows are traversable via assistive tech, focus is maintained, and state updates announce. |
-| [`solution-discovery`](../solution-discovery/SKILL.md) | **Execution**: Determines *which* accessibility tools, testing libraries, or runners fit the project stack (axe, Playwright, pa11y, NVDA, screen-reader CLI). `accessibility` specifies *what* invariants must be verified. |
+| [`solution-discovery`](../solution-discovery/SKILL.md) | **Execution**: Determines which accessibility tools, testing libraries, or runners fit the project stack. `accessibility` specifies what invariants must be verified. |
 | [`testing`](../testing/SKILL.md) | **Execution**: Owns the execution of unit, integration, and E2E test suites. `accessibility` defines the semantic assertions, keyboard walkthrough paths, and AT verification contracts. |
-| [`code-review`](../code-review/SKILL.md) | **Gate**: Catches accessibility regressions and invariant violations as part of routine PR diff inspection. |
-| [`ci-cd`](../ci-cd/SKILL.md) | **Pipeline**: Enforces automated accessibility linters and rendered browser regression scans as pre-merge build gates. |
 | [`agent-evaluation`](../agent-evaluation/SKILL.md) | **Final Gate**: Verifies task completion, evidence grounding, and negative boundary testing before declaring an accessibility task complete. |
+
+---
+
+## 8 · The Clean Accessibility Stopping Contract
+
+An accessibility task is strictly **COMPLETE** only when:
+1. **Interactive Elements Grounded**: All interactive controls use native platform primitives or programmatically expose the Semantic Quadruplet $\langle \text{Role}, \text{Name}, \text{State}, \text{Action} \rangle$.
+2. **Keyboard Traversal Verified**: Complete task flow is traversable using keyboard alone, with zero focus traps, visible focus outlines, and clean `Escape` dismissal of overlays.
+3. **Focus LIFO Enforced**: Overlays, sheets, and dialogs restore focus to the triggering element upon dismissal.
+4. **Sensory Redundancy Confirmed**: Color coding is paired with text/icons; text and components satisfy minimum contrast thresholds.
+5. **Dynamic Annunciation Handled**: Asynchronous state updates and errors announce via polite live regions without flooding assistive channels.
+6. **In Audit Mode**: All findings satisfy the mathematical finding schema with concrete code remediations and evidence tiers.

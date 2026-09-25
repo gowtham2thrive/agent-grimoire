@@ -8,6 +8,9 @@ description: >-
   Enforces the 7 Universal Dependency Invariants, 5-phase lifecycle, 6 cognitive sizing modes,
   mathematical risk ranking, and the Invariant Exception Protocol without limiting agent
   creativity or restricting to any specific package tooling.
+  Do not activate when evaluating whether to build vs adopt a capability (use solution-discovery),
+  writing or refactoring application code (use code-quality or refactoring), provisioning runtime
+  environments or containers (use infrastructure), or mitigating live production outages (use incident-response).
 ---
 
 # Dependency Management: Universal Dependency Engineering & Supply-Chain Protocol
@@ -135,6 +138,9 @@ The 7 invariants adapt dynamically across every software ecosystem by abstractin
 | **.NET / C#** | `*.csproj`, `Directory.Packages.props` | `packages.lock.json` | NuGet global cache (`~/.nuget/packages`) | MSBuild targets, `.targets` injection | `dotnet list package --include-transitive` |
 | **C / C++** | `vcpkg.json`, `conanfile.txt` | `vcpkg-configuration.json`, `conan.lock` | vcpkg installed dir, conan local cache | CMake custom commands, conan generators | `vcpkg depend-info`, `conan graph info` |
 | **Workspaces** | Root manifest (`pnpm-workspace.yaml`, Cargo workspace) | Root lockfile (unified resolution) | Hoisted or symlinked workspace packages | Cross-package build task graphs | Workspace-scoped tree queries |
+| **Custom / Other** | Ecosystem manifest file (intent) | Ecosystem lockfile (pinned truth) | Isolated package store / virtual environment | Sandbox hooks / disable script execution | Ecosystem graph inspection command |
+
+> **Universal Ecosystem Heuristic**: When operating in an unlisted or emerging language ecosystem, identify the three core artifacts: (1) **Declared Manifest** representing human intent, (2) **Resolved Lockfile** representing cryptographic ground truth, and (3) **Cache/Storage Layer** isolating binaries. The manifest-lockfile coherence invariant applies universally regardless of the underlying package manager.
 
 ---
 

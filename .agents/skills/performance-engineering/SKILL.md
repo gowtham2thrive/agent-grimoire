@@ -8,6 +8,9 @@ description: >-
   7-phase closed-loop lifecycle, 6 cognitive sizing modes, Amdahl's Law alignment, coordinated
   omission defense, and empirical verification without limiting agent creativity or restricting
   to any specific technology.
+  Do not activate for routine code construction or bug fixes without measured performance bottlenecks (use code-quality),
+  behavior-preserving restructuring for maintainability (use refactoring), live production incident mitigation
+  (use incident-response), or general dependency upgrades (use dependency-management).
 ---
 
 # Performance Engineering: Universal Profiling, Capacity & Resource Optimization Protocol
@@ -36,7 +39,7 @@ flowchart LR
 2. **Phase 2 — Profile & Isolate (The Cartography Phase)**: Route the diagnostic inquiry to the appropriate profiler category (CPU on/off-path, memory allocations/retention, I/O wait, lock contention, accelerator VRAM). Generate and inspect flame graphs, trace waterfalls, or execution plans to isolate the true critical path. Bounding profiler overhead below 3% ensures measurements reflect reality (see [`references/profiling-taxonomy-and-routing.md`](references/profiling-taxonomy-and-routing.md)).
 3. **Phase 3 — Solution Hierarchy & Amdahl Evaluation (The Design Phase)**: Evaluate solutions in order of operational complexity: Configuration/Infra Tuning $\to$ Database/Storage Access $\to$ Algorithmic/Data-Structure Transformation $\to$ Concurrency/Pipelining $\to$ Hardware Scaling. Calculate Amdahl's theoretical maximum speedup to verify that the target routine dominates total execution time ($p \ge 0.20$) before mutating code (see [`references/configuration-and-tuning-hierarchy.md`](references/configuration-and-tuning-hierarchy.md)).
 4. **Phase 4 — Targeted Mutation (The Implementation Phase)**: Apply the minimal justified code or configuration change directly to the profiled bottleneck. Maintain strict locality of behavior. Never commingle cosmetic refactoring, formatting changes, or unrelated feature additions with a performance diff (see [`references/resource-optimization-patterns.md`](references/resource-optimization-patterns.md)).
-5. **Phase 5 — Re-measure, Statistical Diff & Validation (The Verification Phase)**: Execute the identical benchmark harness under comparable physical conditions on an uninstrumented release build. Verify that the delta $\Delta M = M_{\text{post}} - M_{\text{pre}}$ satisfies the target with statistical significance ($p < 0.01$ over $\ge 30$ samples). Confirm that secondary resources (e.g. heap size, thread count, disk write amplification) have not regressed.
+5. **Phase 5 — Re-measure, Statistical Diff & Validation (The Verification Phase)**: Execute the identical benchmark harness under comparable physical conditions on an uninstrumented release build. Verify that the delta $\Delta M = M_{\text{post}} - M_{\text{pre}}$ satisfies the target with statistical significance appropriate to the workload timescale (e.g. $p < 0.01$ over $\ge 30$ samples for micro-benchmarks, or across multiple representative runs with documented variance for long-running batch or ETL workloads). Confirm that secondary resources (e.g. heap size, thread count, disk write amplification) have not regressed.
 6. **Phase 6 — Stress, Soak & Headroom Verification (The Capacity Phase)**: Subject the optimized system to multi-tier traffic models: Smoke test (sanity), Load test (steady-state SLA), Stress test (saturation/breaking point), Soak test (multi-hour leak/creep detection), and Spike test (burst recovery). Correct for coordinated omission (see [`references/workload-modeling-and-load-testing.md`](references/workload-modeling-and-load-testing.md)).
 7. **Phase 7 — Shield, Document & Persist (The Permanence Phase)**: Convert the verified performance victory into a permanent automated regression test (benchmark assertion, CI performance budget, or load test gate). Document trade-offs (space vs. time, consistency vs. latency, bounded accuracy relaxations) in a durable Performance ADR (see [`references/benchmarking-rigor-and-regression-gates.md`](references/benchmarking-rigor-and-regression-gates.md)).
 
@@ -65,8 +68,8 @@ Size your performance engineering effort strictly to the task's scope, operation
 
 | Mode | Trigger & Scope | Engineering Discipline | Required Output & Protocol |
 | :--- | :--- | :--- | :--- |
-| **`micro-benchmark`** | Single function, loop, DB query, or utility ($< 50$ lines). | Quick pre-check, micro-benchmark run, focused code edit, post-verification. **Zero ceremony**. | **3-Line Performance Intent Block** directly before code edit. |
-| **`hotpath-opt`** | Production endpoint, business logic path, rendering tree (1–5 files). | CPU/Memory profiling, Amdahl hypothesis, targeted refactor, before/after percentile comparison. | **Performance Delta Table**: Baseline $\to$ Mutation $\to$ Post-metric $\to$ Correctness check. |
+| **`micro-benchmark`** | Single function, loop, DB query, or localized utility. | Quick pre-check, micro-benchmark run, focused code edit, post-verification. **Zero ceremony**. | **3-Line Performance Intent Block** directly before code edit. |
+| **`hotpath-opt`** | Production endpoint, business logic path, focused execution tree. | CPU/Memory profiling, Amdahl hypothesis, targeted refactor, before/after percentile comparison. | **Performance Delta Table**: Baseline $\to$ Mutation $\to$ Post-metric $\to$ Correctness check. |
 | **`load-and-capacity`** | Service capacity, SLA verification, API scaling under concurrency. | Synthetic load generation, traffic shaping (ramp, steady, spike), latency percentiles, saturation analysis. | **Load Test Evaluation Report**: P50/P95/P99 latency curves, error rates, throughput saturation point. |
 | **`client-vitals`** | Web/Mobile user perceived performance (Core Web Vitals, INP, LCP, frame drops). | Lab vs Field analysis, main-thread unblocking, bundle tree-shaking, asset optimization, layout shift fix. | **UX Performance Scorecard**: Lab audit, CWV metrics before/after, rendering timeline diff. |
 | **`ai-inference-opt`** | LLM inference, embedding pipelines, RAG vector search, batch processing. | TTFT (Time to First Token), ITL (Inter-Token Latency), KV-cache footprint, GPU utilization, token cost. | **AI Performance Manifest**: TTFT/ITL percentiles, memory ceiling, throughput (tok/s), cost delta. |
@@ -106,7 +109,7 @@ $$\text{Mean}(\mathbf{L}) \text{ is invalid for SLA verification}; \quad \text{E
 ### 4.4 Invariant 4: Ecological Validity & Environmental Parity (The Workload Axiom)
 Performance evaluations must reflect production reality in data volume, memory layout, cache warmup states, network latency, and concurrency shapes:
 $$\text{Workload}_{\text{test}} \sim \text{Workload}_{\text{prod}} \quad \land \quad \text{Noise}(\text{Environment}) \le \text{Tolerance}$$
-* Environmental variance (thermal throttling, GC pauses, JIT compilation, noisy neighbors) must be isolated through statistical validation ($p < 0.01$ via Welch's t-test or Mann-Whitney U test across $\ge 30$ iterations).
+* Environmental variance (thermal throttling, GC pauses, JIT compilation, noisy neighbors) must be isolated through statistical validation appropriate to the workload timescale (e.g. $p < 0.01$ via Welch's t-test or Mann-Whitney U test across $\ge 30$ iterations for micro-benchmarks, or across representative runs with documented confidence intervals for large batch workloads).
 
 ### 4.5 Invariant 5: Semantic Integrity & Bounded Relaxation (The Correctness Axiom)
 An optimization that silently alters functional contracts, introduces concurrency races, compromises security boundaries, or weakens transactional consistency is a defect:
@@ -118,7 +121,7 @@ The optimization must touch the minimal possible surface area required to elimin
 $$\text{Diff}(\text{Optimization}) \cap \text{Diff}(\text{CosmeticRefactoring}) = \emptyset$$
 * Broad architectural redesigns, code beautification, and cosmetic variable renames must never be commingled with a performance optimization patch.
 
-### 7.7 Invariant 7: The Solution Hierarchy Primacy (The Economics Axiom)
+### 4.7 Invariant 7: The Solution Hierarchy Primacy (The Economics Axiom)
 Before rewriting complex business logic or introducing distributed caches, evaluate solutions in order of operational return on investment:
 1. **Configuration & Infrastructure Tuning** (connection pools, memory limits, GC flags, thread counts).
 2. **Database & Storage Query Planning** (indexes, query structure, batching, eager loading).

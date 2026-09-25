@@ -6,6 +6,9 @@ description: >-
   across any language or runtime. Enforces the 7 Universal Security Invariants, archetype-aware
   reachability analysis, zero ambient authority, control/data plane separation, and 0–100 evidence-grounded
   scoring without limiting architectural creativity or micro-managing LLM reasoning.
+  Do not activate for routine bug fixes or refactoring without auth/trust boundary implications (use code-quality
+  or refactoring), routine dependency updates without known CVEs (use dependency-management), or live production
+  incident mitigation (use incident-response).
 ---
 
 # Security Engineering: Universal Defensive Architecture & Threat Protocol
@@ -30,7 +33,7 @@ flowchart LR
 2. **Taint & Reachability Tracing**: Track untrusted data along the execution graph. Apply **Archetype-Aware Reachability**: in applications, trace end-to-end flow from external input to sensitive sinks; in libraries and SDKs, treat every public API boundary as an ingress source.
 3. **Capability Scoping**: Strip away ambient authority. Ensure components and agent tools operate strictly on minimal, unforgeable capability tokens with fail-closed defaults.
 4. **Adversarial Red-Team Challenge**: Stress-test the design against hostile inputs using the STRIDE lenses and agent-specific threat models (prompt injection, confused deputy, memory poisoning).
-5. **Evidence Certification**: Quantify confidence using the 0–100 rubric. Discard speculative findings (< 70) and deliver concrete, actionable remediation patches for verified defects.
+5. **Evidence Certification**: Quantify confidence using the 0–100 rubric ($\text{Score} = P_{\text{reach}} + P_{\text{exploit}} + P_{\text{blast}} + P_{\text{patch}} - P_{\text{speculation}}$). Discard speculative findings (< 70) and deliver concrete, actionable remediation patches for verified defects.
 
 ---
 
@@ -54,7 +57,7 @@ Size your security engineering effort to the threat profile and blast radius. En
 
 | Mode | Trigger & Scope | Defensive Rigor | Required Artifacts |
 | :--- | :--- | :--- | :--- |
-| **`triage`** | Bug fix, localized patch, single-file update (< 50 lines). | Verify perimeter validation; ensure parameterized sinks; verify zero hardcoded credentials. | Clean diff with inline boundary check. |
+| **`triage`** | Isolated patch, bug fix, or localized perimeter validation. | Verify perimeter validation; ensure parameterized sinks; verify zero hardcoded credentials. | Clean diff with inline boundary check. |
 | **`standard`** | New feature, API endpoint, data model, or integration. | Full 5-phase lifecycle; archetype-aware taint tracing; fail-closed state transitions. | Code implementation + boundary verification tests. |
 | **`critical`** | Auth, cryptography, financial transactions, OS daemons, autonomous agent tools. | Exhaustive STRIDE modeling; zero ambient authority; formal exploit proof + hostile test suite. | Architecture threat matrix + verified patch + negative control tests. |
 

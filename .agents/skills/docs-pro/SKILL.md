@@ -6,9 +6,10 @@ description: >-
   ADRs, API references, code contracts, guides, changelogs, release notes,
   runbooks, or agent instructions (AGENTS.md/SKILL.md). Enforces convention
   discovery, evidence-backed grounding, Diátaxis mode discipline, anti-drift
-  synchronization, and progressive disclosure. For isolated single-line
-  docstring or comment fixes, apply ecosystem conventions directly without
-  loading this full skill.
+  synchronization, and progressive disclosure.
+  Do not activate for inline single-line code comments or trivial docstring typo fixes (apply
+  conventions directly without loading this skill), release-lifecycle versioning and formal changelogs
+  (use release-management), or raw git commit messages (use github-pro).
 ---
 
 # Docs Pro: Autonomous Technical Documentation Protocol
@@ -101,10 +102,11 @@ Documentation rots the moment code changes without doc updates. Treat docs as fi
 - **Same-Changeset Updates**: When modifying code, review and update affected docstrings, README sections, and API specs within the same commit or pull request.
 - **Deprecation & Supersession**: When replacing architecture patterns or tools, mark legacy ADRs and docs as `Superseded by ADR-XXX` or `Deprecated`. Never silently delete historical context unless instructed.
 - **Contract Parity**: Public API documentation, typed schemas, and code docstrings must stay 100% in sync with runtime signatures and behavior. *(Contract patterns: [`references/contracts-and-docstrings.md`](references/contracts-and-docstrings.md).)*
+- **Stale Documentation Reconciliation**: When existing documentation directly contradicts current source code or passing tests, live code and tests are the primary ground truth. Mark the contradiction, update the documentation to match code reality, or—if the intent is genuinely ambiguous—escalate to the user with exact code citations before overwriting historical explanations.
 
 ---
 
-## 7 · Verification & Quality Gate
+## 7 · The Clean Documentation Stopping Contract
 
 Before declaring documentation work complete:
 

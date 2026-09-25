@@ -8,6 +8,9 @@ description: >-
   code mutation. Enforces the understand-before-modifying rule, bifurcated
   flow tracing, a 5-tier epistemic evidence ladder, boundary cartography,
   and strict stopping contracts across any language, framework, or tooling.
+  Do not activate for familiar repositories where architecture and harness are already known,
+  trivial localized single-file edits (use code-quality), or task planning on already understood
+  components (use planning).
 ---
 
 # Project Analysis: Autonomous Codebase Inspection Protocol
@@ -88,7 +91,7 @@ The protocol translates seamlessly across any project archetype:
 
 ### 5.1 Token Hygiene Rules
 - **Ignore noise**: Never view lockfiles (`*-lock.*`), minified bundles (`*.min.js`), compiled binaries, or generated protobuf/OpenAPI clients.
-- **Slice reading**: Never read an unfamiliar file of $>200$ lines in its entirety. Search for anchors and view bounded slices ($\le 150$ lines).
+- **Targeted reading**: Avoid reading large files end-to-end when only structural signatures, interfaces, or specific functions are needed. Search for structural anchors and inspect bounded semantic sections.
 - **Surface extraction**: Extract interfaces, type signatures, and routing declarations; do not pull implementation bodies into the mental model unless tracing a specific flow.
 
 ### 5.2 The "Sufficient Understanding" Stopping Contract

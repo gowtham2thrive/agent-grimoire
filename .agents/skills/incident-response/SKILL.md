@@ -6,7 +6,10 @@ description: >-
   executing safe containment, investigating causal factors, communicating across stakeholders, authoring blameless
   post-incident reviews (PIR), or hardening executable runbooks across any software archetype (cloud, distributed,
   monolithic, serverless, data pipelines, embedded, AI agent swarms) without vendor bias or cognitive limitations.
-  This skill is for live/production system failures affecting users or operations, NOT for agent-side development errors (test failures, compilation errors, tool exceptions).
+  This skill is for live/production system failures affecting users or operations.
+  Do not activate for agent-side development errors like local test failures, compilation issues, or tool crashes
+  (use failure-recovery), routine proactive performance profiling (use performance-engineering), or planned
+  refactoring (use refactoring).
 ---
 
 # Incident Response: Universal Operational Crisis Management & Systemic Resilience Protocol
@@ -96,11 +99,17 @@ Size your operational discipline and communication overhead to the severity, bla
 | Mode | Trigger & Scope | Operational Structure | Required Output Contract |
 | :--- | :--- | :--- | :--- |
 | **`p4-anomaly`** | Isolated anomaly, background task retry spike, test harness glitch, zero user harm. | Single responder; autonomous self-contained triage; zero broadcast overhead. | **3-Line Incident Intent Block** directly before code or config mutation. |
-| **`p3-degraded`** | Minor feature degradation, partial redundancy loss, performance drift ($< 5\%$ users), workaround exists. | Incident Lead + Engineer; hourly broadcast; standard reversible containment. | **Incident Triage Brief**: Impact, Hypothesis, Containment, Verification. |
-| **`p2-major`** | Core workflow broken, major user segment impacted ($> 5\%$), redundancy compromised, SLA at risk. | Full ICS command: Incident Commander, Technical Lead, Comms Lead. 30-min updates. | **Active Incident State Record**: Roles, Severity, Blast Radius, Rollback, Comms. |
-| **`p1-critical`** | Critical system outage, catastrophic data corruption risk, total service unavailability, SLA breached. | Executive ICS: Dedicated Commander, Scribe, multiple Domain Leads. 15-min updates. | **Crisis Command Dashboard**: Real-time battle board, containment tracking, public status broadcast. |
+| **`p3-degraded`** | Minor feature degradation, partial redundancy loss, performance drift ($< 5\%$ users), workaround exists. | Incident Lead + Engineer (or solo agent with status broadcast); cadenced milestone updates; standard reversible containment. | **Incident Triage Brief**: Impact, Hypothesis, Containment, Verification. |
+| **`p2-major`** | Core workflow broken, major user segment impacted ($> 5\%$), redundancy compromised, SLA at risk. | Full ICS command (or solo agent assuming command with stakeholder broadcast); frequent cadenced updates. | **Active Incident State Record**: Roles, Severity, Blast Radius, Rollback, Comms. |
+| **`p1-critical`** | Critical system outage, catastrophic data corruption risk, total service unavailability, SLA breached. | Executive ICS with dedicated roles (or solo agent in emergency command with high-frequency updates); real-time battle board. | **Crisis Command Dashboard**: Real-time battle board, containment tracking, public status broadcast. |
 | **`postmortem-pir`** | Post-incident phase for any P1/P2 (or high-signal P3/near-miss) following stabilization. | Blameless review group, cross-functional stakeholders, lead investigator. | **Formal Blameless PIR Document**: Distributed timeline, Causal Factor Tree, SMART action items. |
 | **`runbook-harden`** | Proactive encoding or hardening of incident runbooks, drift audits, chaos fire-drills. | Reliability engineers, system architects. | **Executable Runbook Specification**: Preconditions, automated checks, containment commands, rollback recipe. |
+
+### Solo-Agent Command Adaptation
+When an autonomous agent operates as the primary responder without a human team:
+- The ICS roles (Commander, Technical Lead, Communications Lead) collapse into a single unified execution thread.
+- Rather than waiting on meetings or protocol gates, the agent executes stabilization immediately and provides structured, broadcast updates at every phase transition or meaningful state change.
+- Never let coordination bureaucracy delay safe containment.
 
 ### The 3-Line Incident Intent Protocol (For `p4-anomaly` Mode)
 When resolving isolated, low-risk operational anomalies, eliminate bureaucratic templates in favor of a concise 3-line block directly preceding action:
