@@ -45,6 +45,8 @@ Agent Grimoire provides an integrated suite of battle-tested capabilities coveri
 
 | Skill | Category | Mandate & Purpose | Entrypoint |
 | :--- | :--- | :--- | :--- |
+| **`requirements-analysis`** | Specification | Intent-mechanism separation, 7 Universal Requirements Invariants, EARS syntax, and BDD acceptance criteria without prescribing mechanisms. | [`.agents/skills/requirements-analysis/SKILL.md`](.agents/skills/requirements-analysis/SKILL.md) |
+| **`planning`** | Execution | Universal implementation planning, 7 Universal Planning Invariants, vertical slices, and deterministic verification triads. | [`.agents/skills/planning/SKILL.md`](.agents/skills/planning/SKILL.md) |
 | **`code-quality`** | Construction | Boundary validation, algebraic state modeling, structured causal error hygiene, and concurrency safety without limiting creativity. | [`.agents/skills/code-quality/SKILL.md`](.agents/skills/code-quality/SKILL.md) |
 | **`code-review`** | Audit | Two-stage review gate (spec compliance first, then code quality), 4 specialized lenses, 0–100 confidence scoring, and noise suppression. | [`.agents/skills/code-review/SKILL.md`](.agents/skills/code-review/SKILL.md) |
 | **`security-engineering`** | Defense | Universal threat modeling, 7 security invariants, archetype-aware reachability, zero ambient authority, and 0–100 confidence gating. | [`.agents/skills/security-engineering/SKILL.md`](.agents/skills/security-engineering/SKILL.md) |
@@ -62,6 +64,9 @@ Agent Grimoire provides an integrated suite of battle-tested capabilities coveri
 | **`solution-discovery`** | Strategy | Triviality Threshold, Framework-First inspection, 5-Tier Solution Spectrum, 10-axis candidate evaluation, and anti-corruption adapters. | [`.agents/skills/solution-discovery/SKILL.md`](.agents/skills/solution-discovery/SKILL.md) |
 | **`configuration-management`** | Operations | 7 Universal Configuration Invariants, deterministic precedence lattices, schema validation, and secrets vs. config separation. | [`.agents/skills/configuration-management/SKILL.md`](.agents/skills/configuration-management/SKILL.md) |
 | **`failure-recovery`** | Resilience | Decision-centric self-healing, 7 Recovery Invariants, 3-tier fault attribution, assumption backtracking, and convergence verification. | [`.agents/skills/failure-recovery/SKILL.md`](.agents/skills/failure-recovery/SKILL.md) |
+| **`deployment`** | Delivery | 7 Universal Deployment Invariants, 7-stage closed-loop lifecycle, risk-proportional blast radius, and deterministic rollback. | [`.agents/skills/deployment/SKILL.md`](.agents/skills/deployment/SKILL.md) |
+| **`observability`** | Telemetry | Question-first telemetry design, 8 Universal Observability Invariants, continuous causal context propagation, and trace-based RCA. | [`.agents/skills/observability/SKILL.md`](.agents/skills/observability/SKILL.md) |
+| **`performance-engineering`** | Optimization | Measurement-first profiling, 8 Universal Performance Invariants, Amdahl's Law alignment, distribution percentiles, and CI regression shielding. | [`.agents/skills/performance-engineering/SKILL.md`](.agents/skills/performance-engineering/SKILL.md) |
 
 ---
 
