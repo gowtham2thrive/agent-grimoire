@@ -67,6 +67,7 @@ Agent Grimoire provides an integrated suite of battle-tested capabilities coveri
 | **`deployment`** | Delivery | 7 Universal Deployment Invariants, 7-stage closed-loop lifecycle, risk-proportional blast radius, and deterministic rollback. | [`.agents/skills/deployment/SKILL.md`](.agents/skills/deployment/SKILL.md) |
 | **`observability`** | Telemetry | Question-first telemetry design, 8 Universal Observability Invariants, continuous causal context propagation, and trace-based RCA. | [`.agents/skills/observability/SKILL.md`](.agents/skills/observability/SKILL.md) |
 | **`performance-engineering`** | Optimization | Measurement-first profiling, 8 Universal Performance Invariants, Amdahl's Law alignment, distribution percentiles, and CI regression shielding. | [`.agents/skills/performance-engineering/SKILL.md`](.agents/skills/performance-engineering/SKILL.md) |
+| **`maintenance`** | Vitality | Continuous deterioration detection, 8 Universal Maintenance Invariants, graph-oriented dead-code excision ($C_{\text{dead}} \ge 0.95$), technical-debt quantification ($I_{\text{debt}}$), technology radar governance, and agent instruction hygiene. | [`.agents/skills/maintenance/SKILL.md`](.agents/skills/maintenance/SKILL.md) |
 
 ---
 
